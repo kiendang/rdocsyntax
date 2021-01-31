@@ -1,0 +1,14 @@
+{
+  "name": "rdocsyntax",
+  "version": "0.0.1",
+  "author": "Kien Dang",
+  "license": "GPL-3.0",
+  "scripts": {
+    "build": "r.js -o build.js"
+  },
+  "devDependencies": {
+    "almond": "^0.3.3",
+    "requirejs": "^2.3.6"
+  },
+  "dependencies": {}
+}

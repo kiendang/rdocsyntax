@@ -1,0 +1,15 @@
+.Rproj.user
+.Rhistory
+.RData
+
+node_modules/
+
+.vscode/
+
+.DS_Store
+
+R/create_package.dev.r
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
