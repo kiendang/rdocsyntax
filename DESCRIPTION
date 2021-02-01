@@ -10,7 +10,9 @@ Authors@R:
 Description: Provides syntax highlighting for R HTML documentation.
 License: GPL (>= 3)
 Imports:
-    V8
+    V8,
+    xml2,
+    readr
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

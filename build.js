@@ -3,11 +3,11 @@
   name: "node_modules/almond/almond.js",
   paths: {
     "ace": "ace/lib/ace",
-    "highlight": "srcjs/main"
+    "highlight": "srcjs/app"
   },
   include: [
     "highlight"
   ],
   optimize: "uglify",
-  out: "inst/js/main.js"
+  out: "inst/js/app.js"
 })

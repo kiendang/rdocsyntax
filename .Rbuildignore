@@ -2,10 +2,12 @@
 ^\.Rproj\.user$
 ^LICENSE\.md$
 
-^\.Rhistory$
+\.Rhistory$
+\.V8history$
 \.DS_Store$
 
 ^R/.*\.dev\.r$
+^R/dev/.*
 
 ^srcjs$
 

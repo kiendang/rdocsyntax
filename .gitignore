@@ -1,6 +1,9 @@
 .Rproj.user
 .Rhistory
 .RData
+.V8history
+
+R/dev
 
 node_modules/
 
