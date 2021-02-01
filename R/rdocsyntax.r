@@ -1,16 +1,17 @@
 #' @importFrom V8 v8
 #' @importFrom readr read_file
-#' @importFrom xml2 read_html xml_find_all xml_text xml_text<-
+#' @import xml2
+#' @import rvest
 
 
 #' @export
-enable_doc_syntax_highlight <- function() {
+enable_html_doc_highlight <- function() {
   replace_httpd()
   start_dynamic_help()
 }
 
 
 #' @export
-restore_original_doc <- function() {
+restore_original_html_doc <- function() {
   restore_httpd()
 }

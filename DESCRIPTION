@@ -12,6 +12,7 @@ License: GPL (>= 3)
 Imports:
     V8,
     xml2,
+    rvest,
     readr
 Encoding: UTF-8
 LazyData: true

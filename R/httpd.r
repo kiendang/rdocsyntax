@@ -19,15 +19,10 @@ new_httpd <- function() {
   function(...) {
     response <- httpd(...)
 
-    file <- response[["file"]]
     payload <- response[["payload"]]
-    if (!is.null(file)) {
-      response[["file"]] <- system.file("lapply.html", package = packageName())
-    }
 
-    if (!is.null(payload) && check_html_payload(response)) {
-      response[["payload"]] <-
-        read_file(system.file("lapply.html", package = packageName()))
+    if (!is.null(payload) && is_html_payload(response)) {
+      response[["payload"]] <- highlight_html(payload)
     }
 
     response
@@ -54,7 +49,7 @@ restore_httpd <- function() {
 }
 
 
-check_html_payload <- function(response) {
+is_html_payload <- function(response) {
   content_type <- response[["content-type"]]
   status <- response[["status code"]]
 
