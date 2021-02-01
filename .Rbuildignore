@@ -10,6 +10,8 @@
 ^R/dev/.*
 
 ^srcjs$
+^build\.js$
+^ace$
 
 ^package\.json$
 ^node_modules$
