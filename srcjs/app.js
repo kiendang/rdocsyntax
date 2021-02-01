@@ -14,5 +14,8 @@ define(function (require, exports, module) {
     return highlighter.renderSync(s, new rMode(), theme, null, true);
   }
 
-  module.exports = highlight
+  module.exports = {
+    highlight: highlight,
+    defaultTheme: theme
+  }
 })

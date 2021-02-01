@@ -13,7 +13,7 @@ Imports:
     V8,
     xml2,
     rvest,
-    readr
+    rstudioapi
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

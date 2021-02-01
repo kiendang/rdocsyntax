@@ -1,5 +1,4 @@
 #' @importFrom V8 v8
-#' @importFrom readr read_file
 #' @import xml2
 #' @import rvest
 

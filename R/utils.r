@@ -4,3 +4,11 @@ tempf <- function(content, ...) {
   cat(content, file = tmp)
   tmp
 }
+
+
+call_js <- function(f, ...) {
+  ctx <- v8()
+  ctx$source(system.file("js", "app.js", package = packageName()))
+  ctx$source(system.file("js", "main.js", package = packageName()))
+  ctx$call(f, ...)
+}

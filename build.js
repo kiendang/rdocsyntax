@@ -6,6 +6,7 @@
     "highlight": "srcjs/app"
   },
   include: [
+    "ace/theme/chrome",
     "highlight"
   ],
   optimize: "uglify",
