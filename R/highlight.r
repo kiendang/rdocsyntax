@@ -45,11 +45,19 @@ highlight_node <- function(node) {
 
 remove_indent_guides <- function(doc) {
   nodes <- html_nodes(doc, ".ace_indent-guide")
+
   for (node in nodes) {
-    xml_attr(node, "class") <-
-      if (length(cls <- Filter(function(x) x != "ace_indent-guide", xml_attr(node, "class")))) {
-        cls
-      } else ""
+    remove_classes(node, "ace_indent-guide")
   }
+
   doc
+}
+
+
+remove_classes <- function(node, classes) {
+  xml_attr(node, "class") <-
+    if (length(cls <- setdiff(xml_attr(node, "class"), classes))) {
+      cls
+    } else ""
+  node
 }
