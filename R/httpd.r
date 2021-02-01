@@ -61,5 +61,5 @@ is_html_payload <- function(response) {
 
 
 start_dynamic_help <- function() {
-  try(tools::startDynamicHelp(TRUE), silent = FALSE)
+  try(tools::startDynamicHelp(TRUE), silent = TRUE)
 }
