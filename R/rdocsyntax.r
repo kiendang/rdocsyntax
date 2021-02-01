@@ -14,4 +14,5 @@ enable_html_doc_highlight <- function() {
 #' @export
 restore_original_html_doc <- function() {
   restore_httpd()
+  assignInMyNamespace("original_httpd", NULL)
 }

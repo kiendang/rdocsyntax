@@ -10,7 +10,9 @@ get_original_httpd <- function() {
 }
 
 
-get_httpd <- function() { get("httpd", envir = asNamespace("tools")) }
+get_httpd <- function() {
+  get("httpd", envir = asNamespace("tools"))
+}
 
 
 new_httpd <- function() {
