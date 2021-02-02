@@ -3,13 +3,12 @@ highlight_text <- function(s) {
 }
 
 
-get_theme_css <- function(theme) {
-  theme <- if (missing(theme)) NULL else tolower(trimws(theme))
+get_theme_css <- function(theme = NULL) {
   call_js("getThemeCSS", theme)
 }
 
 
-add_theme_css <- function(doc, theme) {
+add_theme_css <- function(doc, theme = NULL) {
   xml_add_child(
     xml_find_first(doc, "//head"), "style", get_theme_css(theme)
   )

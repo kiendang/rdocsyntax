@@ -2,6 +2,7 @@
 #' @importFrom utils assignInMyNamespace packageName
 #' @import xml2
 #' @import rvest
+NULL
 
 
 #' @export
