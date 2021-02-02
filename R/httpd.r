@@ -33,11 +33,7 @@ new_httpd <- function() {
 
 
 assign_httpd <- function(httpd) {
-  ns <- asNamespace("tools")
-
-  unlockBinding("httpd", ns)
-  on.exit(lockBinding("httpd", ns))
-  assign("httpd", httpd, envir = ns)
+  assign_in_namespace("httpd", httpd, asNamespace("tools"))
 }
 
 
