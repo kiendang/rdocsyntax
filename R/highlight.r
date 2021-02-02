@@ -22,6 +22,10 @@ highlight_html <- function(html) {
 
   code_nodes <- html_nodes(doc, "pre")
 
+  if (!length(code_nodes)) {
+    return(html)
+  }
+
   for (node in code_nodes) {
     highlight_node(node)
   }
