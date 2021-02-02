@@ -60,7 +60,7 @@ remove_indent_guides <- function(doc) {
 
 remove_classes <- function(node, classes) {
   xml_attr(node, "class") <-
-    if (length(cls <- setdiff(xml_attr(node, "class"), classes))) {
+    if (length(cls <- setdiff(split_space(xml_attr(node, "class"))[[1]], classes))) {
       cls
     } else ""
   node

@@ -12,3 +12,8 @@ call_js <- function(f, ...) {
   ctx$source(system.file("js", "main.js", package = packageName()))
   ctx$call(f, ...)
 }
+
+
+split_space <- function(s) {
+  strsplit(s, "\\s+", fixed = FALSE)
+}
