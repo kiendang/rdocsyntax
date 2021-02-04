@@ -21,11 +21,13 @@ new_httpd <- function() {
   function(...) {
     response <- httpd(...)
 
-    payload <- response[["payload"]]
+    try({
+      payload <- response[["payload"]]
 
-    if (!is.null(payload) && is_html_payload(response)) {
-      response[["payload"]] <- highlight_html(payload)
-    }
+      if (!is.null(payload) && is_html_payload(response)) {
+        response[["payload"]] <- highlight_html(payload)
+      }
+    })
 
     response
   }
