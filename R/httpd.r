@@ -56,8 +56,3 @@ is_html_payload <- function(response) {
   is.null(content_type) && is.null(status) ||
     content_type == 'text/html' && status >= 200L && status <= 299L
 }
-
-
-start_dynamic_help <- function() {
-  try(tools::startDynamicHelp(TRUE), silent = TRUE)
-}

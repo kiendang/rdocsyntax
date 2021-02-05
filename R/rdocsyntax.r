@@ -42,7 +42,6 @@ NULL
 #' @export
 highlight_html_docs <- function() {
   replace_httpd()
-  start_dynamic_help()
 }
 
 
