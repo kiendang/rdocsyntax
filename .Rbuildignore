@@ -6,6 +6,8 @@
 \.V8history$
 \.DS_Store$
 
+^screenshots$
+
 ^R/.*\.dev\.r$
 ^R/dev/.*
 
