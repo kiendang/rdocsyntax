@@ -11,8 +11,10 @@ Syntax highlighting follows RStudio theme when running RStudio, otherwise uses T
 <img src="screenshots/before.png" alt="before" width=650px/><img src="screenshots/after.png" alt="after" width=650px/>
 
 
-Getting Started
----------------
+Installation
+------------
+
+*NOTE: The package depends on the `V8` R package which depends on `libv8`. If you are on Linux you need to either install `libv8` from the package manager of your distro or compile `libv8` yourself. This is not required for MacOS or Windows since binary installation of `V8` (the R package) is available. See [`jeroen/V8`](https://github.com/jeroen/V8) for more details.*
 
 Install the package
 
@@ -21,10 +23,13 @@ Install the package
 devtools::install_github("kiendang/rdocsyntax")
 ```
 
+Usage
+-----
+
 Enable syntax highlighting
 
 ```r
-highlight_html_docs()
+rdocsyntax::highlight_html_docs()
 ```
 
 Code in HTML documents is now highlighted
@@ -42,12 +47,16 @@ help(try, help_type = "html")
 Disable syntax highlighting
 
 ```r
-unhighlight_html_docs()
+rdocsyntax::unhighlight_html_docs()
 ```
 
 
 Extras
 ------
+
+### Enable syntax highlighting of HTML docs at startup
+
+Append `rdocsyntax::highlight_html_docs()` to your `.Rprofile`.
 
 ### Implementation details
 
