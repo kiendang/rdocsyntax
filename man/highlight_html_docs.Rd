@@ -10,7 +10,7 @@ highlight_html_docs()
 Enable syntax highlighting in R HTML documentation
 }
 \details{
-R HTML help pages are rendered and served using the \link[tools::startDynamicHelp]{internal help server} (\code{httpd}).
+R HTML help pages are rendered and served using the \link[tools:startDynamicHelp]{internal help server} (\code{httpd}).
 This function replaces the original \code{httpd} with one that receives the response from
 the original server, checks if the response body contains HTML, then finds and highlights portions of the HTML
 that contains code, and finally sends the new response with the HTML highlighted.
