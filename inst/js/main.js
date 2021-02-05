@@ -1,7 +1,7 @@
 function setTimeout() { }
 
 
-var highlighter = require('highlight');
+var highlighter = require("highlight");
 
 
 function getThemeCSS(t) {
@@ -12,7 +12,7 @@ function getThemeCSS(t) {
   var theme = null;
 
   try {
-    theme = require(`ace/theme/${t}`);
+    theme = require("ace/theme/" + t);
   } catch { theme = highlighter.defaultTheme; }
 
   return theme.cssText;
