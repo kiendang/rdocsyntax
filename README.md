@@ -54,11 +54,6 @@ rdocsyntax::unhighlight_html_docs()
 
 Extras
 ------
-
-### Enable syntax highlighting of HTML docs at startup
-
-Append `rdocsyntax::highlight_html_docs()` to your `.Rprofile`.
-
 ### Implementation details
 
 R HTML help pages are rendered and served using the internal help server `httpd`. The package works by replacing the original `httpd` with one that receives the response from the original server, checks if the response body contains HTML, then finds and highlights portions of the HTML that contains code, and finally sends the new response with the HTML highlighted.
