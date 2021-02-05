@@ -1,24 +1,24 @@
-const setTimeout = () => { }
+function setTimeout() { }
 
 
-const highlighter = require('highlight')
+var highlighter = require('highlight');
 
 
-const getThemeCSS = (t) => {
+function getThemeCSS(t) {
   if (!t) {
-    return highlighter.defaultTheme
+    return highlighter.defaultTheme;
   }
 
-  let theme = null
+  var theme = null;
 
   try {
-    theme = require(`ace/theme/${t}`)
-  } catch { theme = highlighter.defaultTheme }
+    theme = require(`ace/theme/${t}`);
+  } catch { theme = highlighter.defaultTheme; }
 
-  return theme.cssText
+  return theme.cssText;
 }
 
 
-const highlight = (s) => (
-  highlighter.highlight(s).html
-)
+function highlight(s) {
+  return highlighter.highlight(s).html;
+}

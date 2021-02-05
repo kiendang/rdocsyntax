@@ -23,6 +23,7 @@ Install the package
 devtools::install_github("kiendang/rdocsyntax")
 ```
 
+
 Usage
 -----
 
