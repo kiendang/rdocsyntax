@@ -8,6 +8,8 @@ This package enables syntax highlighting for R HTML documentation.
 
 Syntax highlighting follows RStudio theme when running RStudio, otherwise uses Textmate theme.
 
+The syntax highlighter in use comes from the [Ace text editor](https://ace.c9.io/), the same editor which RStudio uses.
+
 <img src="screenshots/before.png" alt="before" width=650px/><img src="screenshots/after.png" alt="after" width=650px/>
 
 
