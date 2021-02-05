@@ -9,6 +9,8 @@ Authors@R:
            comment = c(ORCID = "0000-0001-7562-6495"))
 Description: Provides syntax highlighting for R HTML documentation.
 License: GPL (>= 3)
+URL: https://github.com/kiendang/rdocsyntax
+BugReports: https://github.com/kiendang/rdocsyntax/issues
 Imports:
     V8,
     xml2,
