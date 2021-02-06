@@ -39,7 +39,10 @@ highlight_html <- function(html) {
 
 highlight_node <- function(node) {
   code <- html_text(node)
-  highlighted <- html_node(read_html(highlight_text(code)), ".ace-tm")
+  highlighted <- html_node(
+    read_html(highlight_text(code)),
+    "body > div[class*=\"ace\"]"
+  )
   remove_indent_guides(highlighted)
   xml_text(node) <- ""
   xml_add_child(node, highlighted)
