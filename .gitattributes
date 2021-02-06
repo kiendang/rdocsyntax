@@ -1,1 +1,2 @@
 inst/**/*.html linguist-generated
+inst/js/**/*.js linguist-generated
