@@ -1,25 +1,7 @@
-highlight_text <- function(s) {
-  call_js("highlight", s)
-}
-
-
-get_theme <- function(theme) {
-  if (missing(theme)) call_js("getTheme") else call_js("getTheme", theme)
-}
-
-
-add_css <- function(doc, css) {
-  xml_add_child(xml_find_first(doc, "//head"), "style", css)
-  doc
-}
-
-
 highlight_html <- function(html) {
   doc <- read_html(html)
 
   code_nodes <- html_nodes(doc, "pre")
-
-  theme <- get_theme()
 
   if (!length(code_nodes)) {
     return(html)
@@ -30,11 +12,48 @@ highlight_html <- function(html) {
   }
 
   if (!rstudioapi::isAvailable()) {
-    add_css(doc, theme$cssText)
+    add_css(doc, get_user_theme_css())
+    # style_body(doc)
   }
+
+  replace_theme_css_class(doc, ace_default_css_class(), ace_generic_css_class())
 
   as.character(doc, options = c())
 }
+
+
+highlight_text <- function(s) {
+  call_js("highlight", s)
+}
+
+
+get_user_theme_css <- function() {
+  if (
+    (!rstudioapi::isAvailable()) &&
+    length(theme <- getOption("rdocsyntax.theme")) &&
+    is.character(theme)
+  ) {
+    get_theme_css(theme[1])
+  } else {
+    get_theme_css()
+  }
+}
+
+
+get_theme_css <- function(theme) {
+  t <- if (missing(theme)) call_js("getTheme") else call_js("getTheme", theme)
+  gsub(t$cssClass, ace_generic_css_class(), t$cssText)
+}
+
+
+add_css <- function(doc, css) {
+  xml_add_child(xml_find_first(doc, "//head"), "style", css)
+  doc
+}
+
+
+ace_generic_css_class <- function() { "ace_editor_theme" }
+ace_default_css_class <- function() { "ace-tm" }
 
 
 highlight_node <- function(node) {
@@ -60,10 +79,45 @@ remove_indent_guides <- function(doc) {
 }
 
 
+replace_theme_css_class <- function(doc, from, to) {
+  nodes <- html_nodes(doc, paste0(".", from))
+
+  for (node in nodes) {
+    classes <- xml_node_classes(node)
+    new_classes <- ifelse(classes == from, to, classes)
+    xml_attr(node, "class") <- list_to_class(new_classes)
+  }
+}
+
+
 remove_classes <- function(node, classes) {
-  xml_attr(node, "class") <-
-    if (length(cls <- setdiff(split_space(xml_attr(node, "class"))[[1]], classes))) {
+  new_classes <-
+    if (length(cls <- setdiff(xml_node_classes(node), classes))) {
       cls
     } else ""
+
+  xml_attr(node, "class") <- list_to_class(new_classes)
+
   node
+}
+
+
+style_body <- function(doc) {
+  body <- html_node(doc, "body")
+
+  new_classes <- c(xml_node_classes(body), ace_generic_css_class())
+
+  xml_attr(body, "class") <- list_to_class(new_classes)
+
+  doc
+}
+
+
+xml_node_classes <- function(node) {
+  split_space(xml_attr(node, "class"))[[1]]
+}
+
+
+list_to_class <- function(classes) {
+  paste(Filter(Negate(is.na), classes), collapse = " ")
 }

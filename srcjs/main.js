@@ -2,6 +2,7 @@ const setTimeout = () => { }
 
 
 const highlighter = require('highlight')
+const defaultTheme = require('ace/theme/textmate')
 
 
 const getThemeS = (theme) => {
@@ -9,7 +10,7 @@ const getThemeS = (theme) => {
 
   try {
     t = require(`ace/theme/${theme}`)
-  } catch { t = highlighter.defaultTheme }
+  } catch { t = defaultTheme }
 
   return t
 }
@@ -21,11 +22,11 @@ const isString = (x) => (
 
 
 const getTheme = (theme) => {
-  const t = theme ?? highlighter.defaultTheme
+  const t = theme ?? defaultTheme
   return isString(t) ? getThemeS(t) : t
 }
 
 
-const highlight = (s, theme = highlighter.defaultTheme) => (
-  highlighter.highlight(s, getTheme(theme)).html
+const highlight = (s) => (
+  highlighter.highlight(s, defaultTheme).html
 )
