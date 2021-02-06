@@ -17,7 +17,7 @@ var getThemeS = function getThemeS(theme) {
 };
 
 var isString = function isString(x) {
-  return Object.prototype.toString.call(x) == '[object String]';
+  return Object.prototype.toString.call(x) === '[object String]';
 };
 
 var getTheme = function getTheme(theme) {
