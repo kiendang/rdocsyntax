@@ -4,9 +4,12 @@
   "author": "Kien Dang",
   "license": "GPL-3.0",
   "scripts": {
-    "build": "r.js -o build.js"
+    "build": "rm -rf build && babel srcjs -d build && r.js -o build.js && cp build/main.js inst/js/main.js"
   },
   "devDependencies": {
+    "@babel/cli": "^7.12.13",
+    "@babel/core": "^7.12.13",
+    "@babel/preset-env": "^7.12.13",
     "almond": "^0.3.3",
     "requirejs": "^2.3.6"
   },

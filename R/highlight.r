@@ -3,14 +3,15 @@ highlight_text <- function(s) {
 }
 
 
-get_theme_css <- function(theme = NULL) {
-  call_js("getThemeCSS", theme)
+get_theme_css <- function(theme) {
+  if (missing(theme)) call_js("getThemeCSS") else call_js("getThemeCSS", theme)
 }
 
 
-add_theme_css <- function(doc, theme = NULL) {
+add_theme_css <- function(doc, theme) {
+  css <- if (missing(theme)) get_theme_css() else get_theme_css(theme)
   xml_add_child(
-    xml_find_first(doc, "//head"), "style", get_theme_css(theme)
+    xml_find_first(doc, "//head"), "style", css
   )
   doc
 }

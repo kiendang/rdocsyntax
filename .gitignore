@@ -8,6 +8,7 @@ inst/**/*.html
 R/dev
 
 node_modules/
+build/
 
 .vscode/
 
