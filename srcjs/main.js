@@ -26,11 +26,6 @@ const getTheme = (theme) => {
 }
 
 
-const getThemeCSS = (theme = highlighter.defaultTheme) => (
-  getTheme(theme).cssText
-)
-
-
 const highlight = (s, theme = highlighter.defaultTheme) => (
   highlighter.highlight(s, getTheme(theme)).html
 )

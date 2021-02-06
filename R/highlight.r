@@ -3,16 +3,13 @@ highlight_text <- function(s) {
 }
 
 
-get_theme_css <- function(theme) {
-  if (missing(theme)) call_js("getThemeCSS") else call_js("getThemeCSS", theme)
+get_theme <- function(theme) {
+  if (missing(theme)) call_js("getTheme") else call_js("getTheme", theme)
 }
 
 
-add_theme_css <- function(doc, theme) {
-  css <- if (missing(theme)) get_theme_css() else get_theme_css(theme)
-  xml_add_child(
-    xml_find_first(doc, "//head"), "style", css
-  )
+add_css <- function(doc, css) {
+  xml_add_child(xml_find_first(doc, "//head"), "style", css)
   doc
 }
 
@@ -21,6 +18,8 @@ highlight_html <- function(html) {
   doc <- read_html(html)
 
   code_nodes <- html_nodes(doc, "pre")
+
+  theme <- get_theme()
 
   if (!length(code_nodes)) {
     return(html)
@@ -31,7 +30,7 @@ highlight_html <- function(html) {
   }
 
   if (!rstudioapi::isAvailable()) {
-    add_theme_css(doc)
+    add_css(doc, theme$cssText)
   }
 
   as.character(doc, options = c())
