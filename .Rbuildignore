@@ -11,6 +11,8 @@
 ^R/.*\.dev\.r$
 ^R/dev/.*
 
+^inst/.*\.html$
+
 ^srcjs$
 ^build\.js$
 ^ace$

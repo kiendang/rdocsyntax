@@ -3,6 +3,8 @@
 .RData
 .V8history
 
+inst/**/*.html
+
 R/dev
 
 node_modules/
