@@ -9,7 +9,7 @@
 ^screenshots$
 
 ^R/.*\.dev\.r$
-^R/dev/.*
+^R/dev$
 
 ^inst/.*\.html$
 
