@@ -54,5 +54,5 @@ is_html_payload <- function(response) {
   status <- response[["status code"]]
 
   is.null(content_type) && is.null(status) ||
-    content_type == 'text/html' && status >= 200L && status <= 299L
+    content_type == "text/html" && status >= 200L && status <= 299L
 }
