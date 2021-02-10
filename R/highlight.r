@@ -1,15 +1,7 @@
 highlight_html <- function(html) {
   doc <- read_html(html)
 
-  code_nodes <- html_nodes(doc, "pre")
-
-  if (!length(code_nodes)) {
-    return(html)
-  }
-
-  for (node in code_nodes) {
-    highlight_node(node)
-  }
+  replace_theme_css_class(doc, ace_default_css_class(), ace_generic_css_class())
 
   if (!rstudioapi::isAvailable()) {
     theme <- get_user_theme()
@@ -20,7 +12,11 @@ highlight_html <- function(html) {
     style_body(doc)
   }
 
-  replace_theme_css_class(doc, ace_default_css_class(), ace_generic_css_class())
+  code_nodes <- html_nodes(doc, "pre")
+
+  for (node in code_nodes) {
+    highlight_node(node)
+  }
 
   as.character(doc, options = c())
 }

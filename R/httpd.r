@@ -22,10 +22,14 @@ new_httpd <- function() {
     response <- httpd(...)
 
     try({
-      payload <- response[["payload"]]
-
-      if (!is.null(payload) && is_html_payload(response)) {
+      if (length(payload <- response[["payload"]]) && is_html_payload(response)) {
         response[["payload"]] <- highlight_html(payload)
+      } else if (
+        length(file <- response[["file"]]) &&
+        (tolower(file_ext(file)) == "html" || is_html_file(response))
+      ) {
+        response[["file"]] <- highlight_html(read_text(file))
+        names(response) <- ifelse(names(response) == "file", "payload", names(response))
       }
     })
 
@@ -53,6 +57,12 @@ is_html_payload <- function(response) {
   content_type <- response[["content-type"]]
   status <- response[["status code"]]
 
-  is.null(content_type) && is.null(status) ||
-    content_type == "text/html" && status >= 200L && status <= 299L
+  (is.null(content_type) && is.null(status)) ||
+    (content_type == "text/html" && status >= 200L && status <= 299L)
+}
+
+
+is_html_file <- function(response) {
+  length(content_type <- response[["content-type"]]) &&
+    tolower(content_type) == "text/html"
 }
