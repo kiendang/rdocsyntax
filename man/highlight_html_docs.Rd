@@ -34,11 +34,21 @@ When running outside RStudio, theme can be changed by setting the \code{rdocsynt
 option. Valid choices are:
 
 \itemize{
-\item Light themes: \code{chrome}, \code{clouds}, \code{crimson_editor}, \code{dawn}, \code{dreamweaver}, \code{eclipse}, \code{github}, \code{iplastic}, \code{katzenmilch}, \code{kuroir}, \code{solarized_light}, \code{sqlserver}, \code{textmate}, \code{tomorrow}, \code{xcode}
-\item Dark themes: \code{ambiance}, \code{chaos}, \code{clouds_midnight}, \code{cobalt}, \code{dracula}, \code{gob}, \code{gruvbox}, \code{idle_fingers}, \code{kr_theme}, \code{merbivore}, \code{merbivore_soft}, \code{mono_industrial}, \code{monokai}, \code{nord_dark}, \code{pastel_on_dark}, \code{solarized_dark}, \code{terminal}, \code{tomorrow_night}, \code{tomorrow_night_blue}, \code{tomorrow_night_bright}, \code{tomorrow_night_eighties}, \code{twilight}, \code{vibrant_ink}
+\item Light themes: \code{chrome}, \code{clouds}, \code{crimson_editor}, \code{dawn},
+\code{dreamweaver}, \code{eclipse}, \code{github}, \code{iplastic}, \code{katzenmilch},
+\code{kuroir}, \code{solarized_light}, \code{sqlserver}, \code{textmate}, \code{tomorrow},
+\code{xcode}
+
+\item Dark themes: \code{ambiance}, \code{chaos}, \code{clouds_midnight}, \code{cobalt},
+\code{dracula}, \code{gob}, \code{gruvbox}, \code{idle_fingers}, \code{kr_theme},
+\code{merbivore}, \code{merbivore_soft}, \code{mono_industrial}, \code{monokai},
+\code{nord_dark}, \code{pastel_on_dark}, \code{solarized_dark}, \code{terminal},
+\code{tomorrow_night}, \code{tomorrow_night_blue}, \code{tomorrow_night_bright},
+\code{tomorrow_night_eighties}, \code{twilight}, \code{vibrant_ink}
 }
 
-If \code{rdocsyntax.theme} is not set, \code{textmate} is applied by default.
+The default theme is \code{textmate} in case \code{rdocsyntax.theme} is not set or
+set to an invalid value.
 }
 
 \examples{
