@@ -26,6 +26,21 @@ to view all help pages in HTML mode by default. To view one single help page in 
 changing the \code{help_type} option globally, use the \code{help} function, \emph{e.g.}
 \code{help(try, help_type = "html")}.
 }
+\section{Theme}{
+
+When running inside RStudio, syntax highlighting always follows RStudio theme.
+
+When running outside RStudio, theme can be changed by setting the \code{rdocsyntax.theme}
+option. Valid choices are:
+
+\itemize{
+\item Light themes: \code{chrome}, \code{clouds}, \code{crimson_editor}, \code{dawn}, \code{dreamweaver}, \code{eclipse}, \code{github}, \code{iplastic}, \code{katzenmilch}, \code{kuroir}, \code{solarized_light}, \code{sqlserver}, \code{textmate}, \code{tomorrow}, \code{xcode}
+\item Dark themes: \code{ambiance}, \code{chaos}, \code{clouds_midnight}, \code{cobalt}, \code{dracula}, \code{gob}, \code{gruvbox}, \code{idle_fingers}, \code{kr_theme}, \code{merbivore}, \code{merbivore_soft}, \code{mono_industrial}, \code{monokai}, \code{nord_dark}, \code{pastel_on_dark}, \code{solarized_dark}, \code{terminal}, \code{tomorrow_night}, \code{tomorrow_night_blue}, \code{tomorrow_night_bright}, \code{tomorrow_night_eighties}, \code{twilight}, \code{vibrant_ink}
+}
+
+If \code{rdocsyntax.theme} is not set, \code{textmate} is applied by default.
+}
+
 \examples{
 \dontrun{
 # Enable syntax highlighting
@@ -39,6 +54,11 @@ help(try, help_type = "html")
 
 # Disable syntax highlighting
 unhighlight_html_docs()
+}
+
+\dontrun{
+# Switch to dracula theme (only takes effect outside of RStudio)
+options(rdocsyntax.theme = "dracula")
 }
 
 }
