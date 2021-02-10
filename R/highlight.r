@@ -15,7 +15,7 @@ highlight_html <- function(html) {
     theme <- get_user_theme()
     add_css(doc, theme$cssText)
     if (theme$isDark) {
-      add_css(doc, dark_css())
+      add_css(doc, dark_css)
     }
     style_body(doc)
   }
@@ -28,11 +28,6 @@ highlight_html <- function(html) {
 
 highlight_text <- function(s) {
   call_js("highlight", s)
-}
-
-
-dark_css <- function() {
-  read_text(system.file("dark.css", package = packageName()))
 }
 
 

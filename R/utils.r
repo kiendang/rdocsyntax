@@ -15,8 +15,8 @@ read_text <- function(f) {
 
 call_js <- function(f, ...) {
   ctx <- v8()
-  ctx$source(system.file("js", "app.js", package = packageName()))
-  ctx$source(system.file("js", "main.js", package = packageName()))
+  ctx$eval(app_js)
+  ctx$eval(main_js)
   ctx$call(f, ...)
 }
 
