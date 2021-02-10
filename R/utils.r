@@ -6,6 +6,13 @@ tempf <- function(content, ...) {
 }
 
 
+# Read a file into a string character.
+# Similar to \code{readr::read_file}.
+read_text <- function(f) {
+  readChar(f, file.info(f)$size)
+}
+
+
 call_js <- function(f, ...) {
   ctx <- v8()
   ctx$source(system.file("js", "app.js", package = packageName()))

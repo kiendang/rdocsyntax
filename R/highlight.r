@@ -12,8 +12,12 @@ highlight_html <- function(html) {
   }
 
   if (!rstudioapi::isAvailable()) {
-    add_css(doc, get_user_theme_css())
-    # style_body(doc)
+    theme <- get_user_theme()
+    add_css(doc, theme$cssText)
+    if (theme$isDark) {
+      add_css(doc, dark_css())
+    }
+    style_body(doc)
   }
 
   replace_theme_css_class(doc, ace_default_css_class(), ace_generic_css_class())
@@ -27,22 +31,28 @@ highlight_text <- function(s) {
 }
 
 
-get_user_theme_css <- function() {
+dark_css <- function() {
+  read_text(system.file("dark.css", package = packageName()))
+}
+
+
+get_user_theme <- function() {
   if (
     (!rstudioapi::isAvailable()) &&
     length(theme <- getOption("rdocsyntax.theme")) &&
     is.character(theme)
   ) {
-    get_theme_css(theme[1])
+    get_theme(theme[1])
   } else {
-    get_theme_css()
+    get_theme()
   }
 }
 
 
-get_theme_css <- function(theme) {
+get_theme <- function(theme) {
   t <- if (missing(theme)) call_js("getTheme") else call_js("getTheme", theme)
-  gsub(t$cssClass, ace_generic_css_class(), t$cssText)
+  t$cssText <- gsub(t$cssClass, ace_generic_css_class(), t$cssText)
+  t
 }
 
 

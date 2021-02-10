@@ -1,0 +1,66 @@
+/* Based on code from RStudio */
+
+.ace_editor_theme div#TOC {
+  color: white !important;
+  background: none !important;
+}
+
+.ace_editor_theme h1, .ace_editor_theme h2, .ace_editor_theme h3, .ace_editor_theme h4 {
+  color: white !important;
+  background: none !important;
+  border-color: #6a6a6a !important;
+}
+
+.ace_editor_theme table {
+  color: white !important;
+  background: none !important;
+}
+
+.ace_editor_theme p, .ace_editor_theme a, .ace_editor_theme div {
+  color: white !important;
+}
+
+.ace_editor_theme a {
+  background: none !important;
+}
+
+.ace_editor_theme ::selection {
+  background-color: #ccc;
+}
+
+.ace_editor_theme a.sourceLine {
+  color: #a3a3a3 !important;
+}
+
+.ace_editor_theme h3+pre {
+  color: #dedede;
+  background: none;
+}
+
+.ace_editor_theme pre, .ace_editor_theme pre code {
+  background-color: #333;
+  color: #f7f7f7;
+}
+
+.ace_editor_theme p code {
+  color: white !important;
+  background: none;
+}
+
+.ace_editor_theme table thead, .ace_editor_theme table tr.even {
+  background-color: #333 !important;
+  border-color: #999 !important;
+}
+
+.ace_editor_theme table tr.odd {
+  border-color: #999 !important;
+}
+
+.ace_editor_theme table th, .ace_editor_theme table td {
+  border-color: #666 !important;
+}
+
+.ace_editor_theme blockquote {
+  background-color: #333 !important;
+  border-radius: 3px;
+}
