@@ -22,7 +22,17 @@ var isString = function isString(x) {
 
 var getTheme = function getTheme(theme) {
   var t = theme !== null && theme !== void 0 ? theme : defaultTheme;
-  return isString(t) ? getThemeS(t) : t;
+  var result = isString(t) ? getThemeS(t) : t;
+  return function (_ref) {
+    var isDark = _ref.isDark,
+        cssClass = _ref.cssClass,
+        cssText = _ref.cssText;
+    return {
+      isDark: isDark,
+      cssClass: cssClass,
+      cssText: cssText
+    };
+  }(result);
 };
 
 var highlight = function highlight(s) {

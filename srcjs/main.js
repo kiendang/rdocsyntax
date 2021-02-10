@@ -23,7 +23,8 @@ const isString = (x) => (
 
 const getTheme = (theme) => {
   const t = theme ?? defaultTheme
-  return isString(t) ? getThemeS(t) : t
+  const result = isString(t) ? getThemeS(t) : t
+  return (({ isDark, cssClass, cssText }) => ({ isDark, cssClass, cssText }))(result)
 }
 
 
