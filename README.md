@@ -6,7 +6,7 @@ Overview
 
 This package enables syntax highlighting for R HTML documentation.
 
-Syntax highlighting follows RStudio theme when running RStudio, otherwise uses Textmate theme.
+Syntax highlighting follows RStudio theme when running RStudio. When running outside RStudio, Textmate theme is applied by default and theme customization is supported. See [Themes](/#themes) for more details.
 
 The syntax highlighter in use comes from the [Ace text editor](https://ace.c9.io/), the same editor underlying RStudio.
 
@@ -56,6 +56,24 @@ rdocsyntax::unhighlight_html_docs()
 
 Extras
 ------
+
+### Themes
+
+When running inside RStudio, syntax highlighting always follows RStudio theme.
+
+When running outside RStudio, theme can be changed by setting the `rdocsyntax.theme` option. Valid choices are:
+
+  - Light themes: `chrome`, `clouds`, `crimson_editor`, `dawn`, `dreamweaver`, `eclipse`, `github`, `iplastic`, `katzenmilch`, `kuroir`, `solarized_light`, `sqlserver`, `textmate`, `tomorrow`, `xcode`
+  - Dark themes: `ambiance`, `chaos`, `clouds_midnight`, `cobalt`, `dracula`, `gob`, `gruvbox`, `idle_fingers`, `kr_theme`, `merbivore`, `merbivore_soft`, `mono_industrial`, `monokai`, `nord_dark`, `pastel_on_dark`, `solarized_dark`, `terminal`, `tomorrow_night`, `tomorrow_night_blue`, `tomorrow_night_bright`, `tomorrow_night_eighties`, `twilight`, `vibrant_ink`
+
+*e.g.* to switch to `dracula`:
+
+```r
+options(rdocsyntax.theme = "dracula")
+```
+
+The default theme is `textmate` in case `rdocsyntax.theme` is not set or set to an invalid value.
+
 ### Implementation details
 
 R HTML help pages are rendered and served using the internal help server `httpd`. The package works by replacing the original `httpd` with one that receives the response from the original server, checks if the response body contains HTML, then finds and highlights portions of the HTML that contains code, and finally sends the new response with the HTML highlighted.
