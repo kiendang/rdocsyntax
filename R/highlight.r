@@ -62,7 +62,7 @@ ace_generic_css_class <- function() { "ace_editor_theme" }
 ace_default_css_class <- function() { "ace-tm" }
 
 
-highlight_text_node <- function(node) {
+highlight_node <- function(node) {
   if (!length(code <- html_text(node)) || { code <- trimws(code) } == "") {
     return(node)
   }
@@ -72,6 +72,13 @@ highlight_text_node <- function(node) {
     "body > div[class*=\"ace\"]"
   )
   remove_indent_guides(highlighted)
+
+  highlighted
+}
+
+
+highlight_text_node <- function(node) {
+  highlighted <- highlight_node(node)
 
   xml_text(node) <- ""
 
@@ -80,15 +87,8 @@ highlight_text_node <- function(node) {
 
 
 highlight_html_node <- function(node) {
-  if (!length(code <- html_text(node)) || { code <- trimws(code) } == "") {
-    return(node)
-  }
-
-  highlighted <- html_node(
-    read_html(highlight_text(code)),
-    "body > div[class*=\"ace\"]"
-  )
-  remove_indent_guides(highlighted)
+  highlighted <- highlight_node(node)
+  remove_classes(highlighted, ace_default_css_class())
 
   texts <- xml_find_all(node, ".//text()")
   xml_text(texts) <- ""
