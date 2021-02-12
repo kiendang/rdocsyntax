@@ -1,8 +1,6 @@
 highlight_html <- function(html) {
   doc <- read_html(html)
 
-  replace_theme_css_class(doc, ace_default_css_class(), ace_generic_css_class())
-
   if (!rstudioapi::isAvailable()) {
     theme <- get_user_theme()
     add_css(doc, theme$cssText)
@@ -12,11 +10,18 @@ highlight_html <- function(html) {
     style_body(doc)
   }
 
-  code_nodes <- html_nodes(doc, "pre")
+  text_code_nodes <- xml_find_all(doc, ".//pre[count(*)=0]")
+  html_code_nodes <- html_nodes(doc, "pre code.sourceCode.r")
 
-  for (node in code_nodes) {
-    highlight_node(node)
+  for (node in text_code_nodes) {
+    highlight_text_node(node)
   }
+
+  for (node in html_code_nodes) {
+    highlight_html_node(node)
+  }
+
+  replace_theme_css_class(doc, ace_default_css_class(), ace_generic_css_class())
 
   as.character(doc, options = c())
 }
@@ -57,14 +62,41 @@ ace_generic_css_class <- function() { "ace_editor_theme" }
 ace_default_css_class <- function() { "ace-tm" }
 
 
-highlight_node <- function(node) {
-  code <- html_text(node)
+highlight_text_node <- function(node) {
+  if (!length(code <- html_text(node)) || { code <- trimws(code) } == "") {
+    return(node)
+  }
+
   highlighted <- html_node(
     read_html(highlight_text(code)),
     "body > div[class*=\"ace\"]"
   )
   remove_indent_guides(highlighted)
+
   xml_text(node) <- ""
+
+  xml_add_child(node, highlighted)
+}
+
+
+highlight_html_node <- function(node) {
+  if (!length(code <- html_text(node)) || { code <- trimws(code) } == "") {
+    return(node)
+  }
+
+  highlighted <- html_node(
+    read_html(highlight_text(code)),
+    "body > div[class*=\"ace\"]"
+  )
+  remove_indent_guides(highlighted)
+
+  texts <- xml_find_all(node, ".//text()")
+  xml_text(texts) <- ""
+
+  for (child in xml_children(node)) {
+    xml_remove(child)
+  }
+
   xml_add_child(node, highlighted)
 }
 
