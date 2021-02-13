@@ -31,7 +31,7 @@ new_httpd <- function() {
         response[["file"]] <- highlight_html(read_text(file))
         names(response) <- ifelse(names(response) == "file", "payload", names(response))
       }
-    })
+    }, silent = TRUE)
 
     response
   }
