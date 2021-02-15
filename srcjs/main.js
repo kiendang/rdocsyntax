@@ -28,6 +28,12 @@ const getTheme = (theme) => {
 }
 
 
+const inlineNotRunRegex = /(?<=^[^\S\n\r]*##[^\S\n\r]+Not run:)[^\S\n\r]+/gm
+
+
+const addLineBreakNotRun = s => s.replace(inlineNotRunRegex, "\n")
+
+
 const highlight = (s) => (
-  highlighter.highlight(s, defaultTheme).html
+  highlighter.highlight(addLineBreakNotRun(s), defaultTheme).html
 )

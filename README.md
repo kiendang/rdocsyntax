@@ -81,3 +81,22 @@ R HTML help pages are rendered and served using the internal help server `httpd`
 An alternative implementation that does not involve replacing the internal `httpd` can be found at [`kiendang/rdocsyntax.ex`](https://github.com/kiendang/rdocsyntax.ex).
 
 Compared to `rdocsyntax.ex`, `rdocsyntax` is a cleaner implementation and integrates better with RStudio, *i.e.*, help pages are displayed inside the Help pane, other functionalities such as search, forward, backward work out of the box. It also has the advantage of being faster and is the one that I personally use. However, since it involves overwriting `tools:::httpd`, we might have difficulties submitting the package to CRAN later if we want to. `rdocsyntax.ex`, on the other hand, might be considered a "safer" (though there is nothing unsafe regarding `rdocsyntax`), but the implementation is a bit "clunky", and does not integrate as nicely with RStudio: help pages are displayed in the Viewer instead of Helper pane and those aforementioned extra functionalities are not readily available.
+
+### Inline `## Not run`
+
+There are `## Not run` code examples that are single line. *e.g* in `?rstudioapi::highlightUi`
+
+```r
+## Not run: rstudioapi::highlightUi("#rstudio_workbench_panel_git")
+```
+
+The code will not be syntax-highlighted because the whole line is considered a comment.
+
+The solution we use is to turn it into
+
+```r
+## Not run:
+rstudioapi::highlightUi("#rstudio_workbench_panel_git")
+```
+
+in the generated html.
