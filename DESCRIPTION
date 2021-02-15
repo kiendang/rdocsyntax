@@ -1,6 +1,6 @@
 Package: rdocsyntax
 Title: Syntax Highlighting for R HTML Documentation
-Version: 0.3.2.9000
+Version: 0.3.3
 Authors@R:
     person(given = "Trung Kien",
            family = "Dang",
