@@ -38,7 +38,7 @@ var getTheme = function getTheme(theme) {
 var inlineNotRunRegex = /(?<=^[^\S\n\r]*##[^\S\n\r]+Not run:)[^\S\n\r]+/gm;
 
 var addLineBreakNotRun = function addLineBreakNotRun(s) {
-  return s.replace(inlineNotRunRegex, "\n");
+  return s.replace(inlineNotRunRegex, '\n');
 };
 
 var highlight = function highlight(s) {

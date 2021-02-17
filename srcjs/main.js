@@ -31,7 +31,7 @@ const getTheme = (theme) => {
 const inlineNotRunRegex = /(?<=^[^\S\n\r]*##[^\S\n\r]+Not run:)[^\S\n\r]+/gm
 
 
-const addLineBreakNotRun = s => s.replace(inlineNotRunRegex, "\n")
+const addLineBreakNotRun = (s) => s.replace(inlineNotRunRegex, '\n')
 
 
 const highlight = (s) => (
