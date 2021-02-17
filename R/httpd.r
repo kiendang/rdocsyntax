@@ -21,7 +21,7 @@ new_httpd <- function() {
   function(...) {
     response <- httpd(...)
 
-    try({
+    tryCatch({
       if (length(payload <- response[["payload"]]) && is_html_payload(response)) {
         response[["payload"]] <- highlight_html(payload)
       } else if (
@@ -31,7 +31,11 @@ new_httpd <- function() {
         response[["file"]] <- highlight_html(read_text(file))
         names(response) <- ifelse(names(response) == "file", "payload", names(response))
       }
-    }, silent = TRUE)
+    }, error = function(e) {
+      if (length(dev <- getOption("rdocsyntax.dev")) && dev) {
+        print(sprintf("Error with rdocsyntax help server: %s", e))
+      }
+    })
 
     response
   }

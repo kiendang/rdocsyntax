@@ -100,3 +100,11 @@ rstudioapi::highlightUi("#rstudio_workbench_panel_git")
 ```
 
 in the generated html.
+
+### Debug mode
+
+For development, debugging purpose, to show errors from `rdocsyntax` `httpd` help server:
+
+```r
+options(rdocsyntax.dev = TRUE)
+```
