@@ -13,6 +13,7 @@
 
 ^inst/.*\.html$
 
+^scripts$
 ^srcjs$
 ^build$
 ^ace$
