@@ -4,6 +4,6 @@
 
 - ~~Figure out logging, *i.e.* log errors from `httpd` in dev/debug mode.~~
 
-- Handle inline `## Not run:`, *i.e.* port over https://github.com/kiendang/rdocsyntax.ex#single-line--not-run
+- ~~Handle inline `## Not run:`, *i.e.* port over https://github.com/kiendang/rdocsyntax.ex#single-line--not-run~~
 
 - Add tests
