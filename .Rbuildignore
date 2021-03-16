@@ -2,6 +2,9 @@
 ^\.Rproj\.user$
 ^LICENSE\.md$
 
+^TODO\.md$
+\.vscode$
+
 \.Rhistory$
 \.V8history$
 \.DS_Store$
