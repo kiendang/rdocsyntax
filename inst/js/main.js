@@ -35,6 +35,10 @@ var getTheme = function getTheme(theme) {
   }(result);
 };
 
+var highlightCode = function highlightCode(s) {
+  return highlighter.highlight(s, defaultTheme).html;
+};
+
 var inlineNotRunRegex = /(?<=^[^\S\n\r]*##[^\S\n\r]+Not run:)[^\S\n\r]+/gm;
 
 var addLineBreakNotRun = function addLineBreakNotRun(s) {
@@ -42,5 +46,5 @@ var addLineBreakNotRun = function addLineBreakNotRun(s) {
 };
 
 var highlight = function highlight(s) {
-  return highlighter.highlight(addLineBreakNotRun(s), defaultTheme).html;
+  return highlightCode(addLineBreakNotRun(s));
 };
