@@ -29,7 +29,7 @@ split_space <- function(s) {
 assign_in_namespace <- function(x, value, ns) {
   namespace <- if (is.character(ns)) asNamespace(ns) else ns
 
-  unlockBinding(x, namespace)
-  on.exit(lockBinding(x, namespace))
+  .BaseNamespaceEnv$unlockBinding(x, namespace)
+  on.exit(.BaseNamespaceEnv$lockBinding(x, namespace))
   assign(x, value, envir = namespace)
 }
