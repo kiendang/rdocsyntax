@@ -15,7 +15,7 @@ NULL
 #' that contains code, and finally sends the new response with the HTML highlighted.
 #'
 #' The syntax highlighter in use comes from the \href{https://ace.c9.io/}{Ace text editor},
-#' the same editor which \href{https://rstudio.com}{Rstudio} uses.
+#' the same editor which \href{https://www.rstudio.com/}{Rstudio} uses.
 #'
 #' To disable syntax highlighting and revert to the original help server, use \code{\link{unhighlight_html_docs}}.
 #'
