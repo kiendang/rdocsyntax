@@ -38,15 +38,86 @@ foo <- function(x = 1, y = 2) c(x, y)
 bar <- function(n, x) replicate(n, foo(x = x))
 bar(5, x = 3)
 ',
-'f <- function(x) x * 2',
-'x',
-'',
-'x <- '
+"f <- function(x) x * 2'",
+"x",
+"",
+" ",
+"x <- "
 )
 
 
 test_that("test code is unmodified after syntax highlighting", {
   for (code in test_cases) {
     test_unmodified_text_after_highlight(code)
+  }
+})
+
+
+test_newline_inline_notrun <- function(code, expected) {
+  highlighted <- call_js("highlight", code)
+  parsed <- read_xml(highlighted, options = c())
+  after_text <- xml_text(parsed)
+  expect_identical(trimws(after_text), trimws(expected))
+}
+
+
+inline_notrun_test_cases <- list(
+# from ?rstudioapi::highlightUi
+c(
+'## Not run: rstudioapi::highlightUi(
+  list(
+    list(
+      query="#rstudio_workbench_panel_git",
+      callback="rstudioapi::highlightUi(\'\')"
+    )
+  )
+)
+## End(Not run)',
+'## Not run:
+rstudioapi::highlightUi(
+  list(
+    list(
+      query="#rstudio_workbench_panel_git",
+      callback="rstudioapi::highlightUi(\'\')"
+    )
+  )
+)
+## End(Not run)'
+),
+c(
+'## Not run: rstudioapi::highlightUi(".rstudio_chunk_setup .rstudio_run_chunk")',
+'## Not run:
+rstudioapi::highlightUi(".rstudio_chunk_setup .rstudio_run_chunk")'
+),
+c(
+'## Not run:
+rstudioapi::highlightUi(".rstudio_chunk_setup .rstudio_run_chunk")',
+'## Not run:
+rstudioapi::highlightUi(".rstudio_chunk_setup .rstudio_run_chunk")'
+),
+c(
+'rstudioapi::highlightUi(".rstudio_chunk_setup .rstudio_run_chunk")',
+'rstudioapi::highlightUi(".rstudio_chunk_setup .rstudio_run_chunk")'
+)
+)
+
+
+test_that("Test inserting newline for inline Not run", {
+  for (case in inline_notrun_test_cases) {
+    test_newline_inline_notrun(case[1], case[2])
+  }
+})
+
+
+test_highlight_node <- function(code) {
+  node <- html_element(read_html(sprintf("<pre>%s</pre>", code)), "pre")
+  highlighted <- highlight_node(node)
+  expect_true(ace_default_css_class() %in% xml_node_classes(highlighted))
+}
+
+
+test_that("Test highlighted text by css class", {
+  for (case in test_cases) {
+    if (trimws(case) != "") test_highlight_node(case)
   }
 })
