@@ -6,7 +6,7 @@ Overview
 
 This package enables syntax highlighting for R HTML documentation.
 
-Syntax highlighting follows RStudio theme when running RStudio. When running outside RStudio, Textmate theme is applied by default and theme customization is supported. See [Themes](/#themes) for more details.
+Syntax highlighting follows RStudio theme when running RStudio. When running outside RStudio, Textmate theme is applied by default and theme customization is supported. See **Themes** below.
 
 The syntax highlighter in use comes from the [Ace text editor](https://ace.c9.io/), the same editor underlying RStudio.
 
