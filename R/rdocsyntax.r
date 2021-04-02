@@ -8,6 +8,8 @@ NULL
 
 #' Enable syntax highlighting in R HTML documentation
 #'
+#' @return Called for side effects. No return value.
+#'
 #' @details
 #' R HTML help pages are rendered and served using the \link[tools:startDynamicHelp]{internal help server} (\code{httpd}).
 #' This function replaces the original \code{httpd} with one that receives the response from
@@ -79,8 +81,11 @@ highlight_html_docs <- function() {
 
 #' Disable HTML documentation syntax highlighting
 #'
+#'
 #' @description
 #' Revert to the original help server for handling HTML documentation.
+#'
+#' @return Called for side effects. No return value.
 #'
 #' @seealso \code{\link{highlight_html_docs}}
 #'

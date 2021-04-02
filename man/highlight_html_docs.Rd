@@ -6,6 +6,9 @@
 \usage{
 highlight_html_docs()
 }
+\value{
+Called for side effects. No return value.
+}
 \description{
 Enable syntax highlighting in R HTML documentation
 }

@@ -6,6 +6,9 @@
 \usage{
 unhighlight_html_docs()
 }
+\value{
+Called for side effects. No return value.
+}
 \description{
 Revert to the original help server for handling HTML documentation.
 }
