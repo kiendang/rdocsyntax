@@ -8,7 +8,7 @@ This package enables syntax highlighting for R HTML documentation.
 
 Syntax highlighting follows RStudio theme when running RStudio. When running outside RStudio, Textmate theme is applied by default and theme customization is supported. See [Themes](#themes) for more details.
 
-The syntax highlighter in use comes from the [Ace text editor](https://ace.c9.io/), the same editor underlying RStudio.
+The syntax highlighter comes from [Ace text editor](https://ace.c9.io/), the same editor underlying RStudio.
 
 <img src="screenshots/before.png" alt="before" width=650px/><img src="screenshots/after.png" alt="after" width=650px/>
 
@@ -16,20 +16,18 @@ The syntax highlighter in use comes from the [Ace text editor](https://ace.c9.io
 Installation
 ------------
 
-*NOTE: The package depends on the `V8` R package which depends on `libv8`. If you are on Linux you need to either install `libv8` from the package manager of your distro or compile `libv8` yourself. This is not required for MacOS or Windows since binary installation of `V8` (the R package) is available. See [`jeroen/V8`](https://github.com/jeroen/V8) for more details.*
-
-Install the package
-
 ```r
 # install.packages("devtools")
 devtools::install_github("kiendang/rdocsyntax")
 ```
 
+*NOTE: The package depends on the `V8` R package which depends on `libv8`. If you are on Linux you need to either install `libv8` from the package manager of your distro or compile `libv8` yourself. This is not required for MacOS or Windows since binary installation of `V8` (the R package) is available. See [`jeroen/V8`](https://github.com/jeroen/V8) for more details.*
+
 
 Usage
 -----
 
-Enable syntax highlighting
+### Enable syntax highlighting
 
 ```r
 rdocsyntax::highlight_html_docs()
@@ -41,13 +39,20 @@ Code in HTML documents is now highlighted
 ?try
 ```
 
-or if help pages are not displayed in HTML mode by default, *e.g.* when R is not running inside RStudio
+If help pages are not displayed in HTML mode by default, *e.g.* when R is not running inside RStudio, set `help_type` option to `html`:
 
 ```r
 help(try, help_type = "html")
 ```
 
-Disable syntax highlighting
+or
+
+```r
+options(help_type = "html")
+?try
+```
+
+### Disable syntax highlighting
 
 ```r
 rdocsyntax::unhighlight_html_docs()
