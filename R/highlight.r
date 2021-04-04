@@ -4,9 +4,7 @@ highlight_html <- function(html) {
   if (!rstudioapi::isAvailable()) {
     theme <- get_user_theme()
     add_css(doc, theme$cssText)
-    if (theme$isDark) {
-      add_css(doc, dark_css)
-    }
+    add_css(doc, if (theme$isDark) dark_css else light_css)
     style_body(doc)
   }
 

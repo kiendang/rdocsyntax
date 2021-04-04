@@ -1,0 +1,25 @@
+/* Based on code from RStudio */
+
+.ace_editor_theme div#TOC {
+  background: none !important;
+}
+
+.ace_editor_theme h1, .ace_editor_theme h2, .ace_editor_theme h3, .ace_editor_theme h4 {
+  background: none !important;
+}
+
+.ace_editor_theme table {
+  background: none !important;
+}
+
+.ace_editor_theme a {
+  background: none !important;
+}
+
+.ace_editor_theme h3+pre {
+  background: none;
+}
+
+.ace_editor_theme p code {
+  background: none;
+}
