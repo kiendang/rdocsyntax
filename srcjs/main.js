@@ -33,11 +33,17 @@ const highlightCode = (s) => (
 )
 
 
-// const inlineNotRunRegex = /(?<=^[^\S\n\r]*##[^\S\n\r]+Not run:)[^\S\n\r]+/gm
+let addLineBreakNotRun = (s) => s
 
 
-// const addLineBreakNotRun = (s) => s.replace(inlineNotRunRegex, '\n')
+try {
+  const inlineNotRunRegex = new RegExp('(?<=^[^\\S\\n\\r]*##[^\\S\\n\\r]+Not run:)[^\\S\\n\\r]+', 'gm')
+  addLineBreakNotRun = (s) => s.replace(inlineNotRunRegex, '\n')
+} catch (e) {
+  if (!e instanceof SyntaxError) {
+    throw e
+  }
+}
 
 
-// const highlight = (s) => highlightCode(addLineBreakNotRun(s))
-const highlight = highlightCode
+const highlight = (s) => highlightCode(addLineBreakNotRun(s))
