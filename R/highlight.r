@@ -65,7 +65,7 @@ highlight_node <- function(node) {
     return(node)
   }
 
-  highlighted <- html_element(
+  highlighted <- html_node(
     read_html(highlight_text(code)),
     "body > div[class*=\"ace\"]"
   )
