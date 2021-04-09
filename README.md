@@ -92,21 +92,21 @@ Compared to `rdocsyntax.ex`, `rdocsyntax` is a cleaner implementation and integr
 This is currently only available for `v8` versions that support positive lookbehind regex (probably `>= 5.1.281`). See [#2](https://github.com/kiendang/rdocsyntax/issues/2).
 
 <details>
-  <summary>how to check your `v8` version</summary>
+  <summary><i>how to check your <code>v8</code> version</i></summary>
 
-```r
-ctx <- V8::v8()
-ctx
-# <V8 engine 8.3.110.9>
-#  $assign(name, value, auto_unbox = TRUE, ...)
-#  $call(fun, ..., auto_unbox = TRUE)
-#  $console()
-#  $eval(src, serialize = FALSE)
-#  $get(name, ...)
-#  $reset()
-#  $source(file)
-#  $validate(src)
-```
+  ```r
+  ctx <- V8::v8()
+  ctx
+  # <V8 engine 8.3.110.9>
+  #  $assign(name, value, auto_unbox = TRUE, ...)
+  #  $call(fun, ..., auto_unbox = TRUE)
+  #  $console()
+  #  $eval(src, serialize = FALSE)
+  #  $get(name, ...)
+  #  $reset()
+  #  $source(file)
+  #  $validate(src)
+  ```
 
 </details>
 
