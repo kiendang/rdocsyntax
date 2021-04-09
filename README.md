@@ -89,22 +89,28 @@ Compared to `rdocsyntax.ex`, `rdocsyntax` is a cleaner implementation and integr
 
 ### Inline `## Not run`
 
-There are `## Not run` code examples that are single line. *e.g* in `?rstudioapi::highlightUi`
+This is currently disabled due to [#2](https://github.com/kiendang/rdocsyntax/issues/2).
 
-```r
-## Not run: rstudioapi::highlightUi("#rstudio_workbench_panel_git")
-```
+<details>
 
-The code will not be syntax-highlighted because the whole line is considered a comment.
+  There are `## Not run` code examples that are single line. *e.g* in `?rstudioapi::highlightUi`
 
-The solution we use is to turn it into
+  ```r
+  ## Not run: rstudioapi::highlightUi("#rstudio_workbench_panel_git")
+  ```
 
-```r
-## Not run:
-rstudioapi::highlightUi("#rstudio_workbench_panel_git")
-```
+  The code will not be syntax-highlighted because the whole line is considered a comment.
 
-in the generated html.
+  The solution we use is to turn it into
+
+  ```r
+  ## Not run:
+  rstudioapi::highlightUi("#rstudio_workbench_panel_git")
+  ```
+
+  in the generated html.
+
+</details>
 
 ### Debug mode
 
