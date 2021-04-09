@@ -89,28 +89,43 @@ Compared to `rdocsyntax.ex`, `rdocsyntax` is a cleaner implementation and integr
 
 ### Inline `## Not run`
 
-This is currently disabled due to [#2](https://github.com/kiendang/rdocsyntax/issues/2).
+This is currently only available for `v8` versions that support positive lookbehind regex (probably `>= 5.1.281`). See [#2](https://github.com/kiendang/rdocsyntax/issues/2).
 
 <details>
+  <summary>how to check your `v8` version</summary>
 
-  There are `## Not run` code examples that are single line. *e.g* in `?rstudioapi::highlightUi`
-
-  ```r
-  ## Not run: rstudioapi::highlightUi("#rstudio_workbench_panel_git")
-  ```
-
-  The code will not be syntax-highlighted because the whole line is considered a comment.
-
-  The solution we use is to turn it into
-
-  ```r
-  ## Not run:
-  rstudioapi::highlightUi("#rstudio_workbench_panel_git")
-  ```
-
-  in the generated html.
+```r
+ctx <- V8::v8()
+ctx
+# <V8 engine 8.3.110.9>
+#  $assign(name, value, auto_unbox = TRUE, ...)
+#  $call(fun, ..., auto_unbox = TRUE)
+#  $console()
+#  $eval(src, serialize = FALSE)
+#  $get(name, ...)
+#  $reset()
+#  $source(file)
+#  $validate(src)
+```
 
 </details>
+
+There are `## Not run` code examples that are single line. *e.g* in `?rstudioapi::highlightUi`
+
+```r
+## Not run: rstudioapi::highlightUi("#rstudio_workbench_panel_git")
+```
+
+The code will not be syntax-highlighted because the whole line is considered a comment.
+
+The solution we use is to turn it into
+
+```r
+## Not run:
+rstudioapi::highlightUi("#rstudio_workbench_panel_git")
+```
+
+in the generated html.
 
 ### Debug mode
 
