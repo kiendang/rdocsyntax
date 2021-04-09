@@ -37,9 +37,24 @@ var getTheme = function getTheme(theme) {
 
 var highlightCode = function highlightCode(s) {
   return highlighter.highlight(s, defaultTheme).html;
-}; // const inlineNotRunRegex = /(?<=^[^\S\n\r]*##[^\S\n\r]+Not run:)[^\S\n\r]+/gm
-// const addLineBreakNotRun = (s) => s.replace(inlineNotRunRegex, '\n')
-// const highlight = (s) => highlightCode(addLineBreakNotRun(s))
+};
 
+var addLineBreakNotRun = function addLineBreakNotRun(s) {
+  return s;
+};
 
-var highlight = highlightCode;
+try {
+  var inlineNotRunRegex = new RegExp('(?<=^[^\\S\\n\\r]*##[^\\S\\n\\r]+Not run:)[^\\S\\n\\r]+', 'gm');
+
+  addLineBreakNotRun = function addLineBreakNotRun(s) {
+    return s.replace(inlineNotRunRegex, '\n');
+  };
+} catch (e) {
+  if (!e instanceof SyntaxError) {
+    throw e;
+  }
+}
+
+var highlight = function highlight(s) {
+  return highlightCode(addLineBreakNotRun(s));
+};

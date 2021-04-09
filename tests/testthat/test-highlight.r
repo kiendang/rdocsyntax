@@ -102,11 +102,11 @@ c(
 )
 
 
-# test_that("Test inserting newline for inline Not run", {
-#   for (case in inline_notrun_test_cases) {
-#     test_newline_inline_notrun(case[1], case[2])
-#   }
-# })
+test_that("Test inserting newline for inline Not run", {
+  for (case in inline_notrun_test_cases) {
+    test_newline_inline_notrun(case[1], case[2])
+  }
+})
 
 
 test_highlight_node <- function(code) {
