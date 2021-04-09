@@ -9,7 +9,7 @@ highlight_html <- function(html) {
   }
 
   text_code_nodes <- xml_find_all(doc, ".//pre[count(*)=0]")
-  html_code_nodes <- html_elements(doc, "pre code.sourceCode.r")
+  html_code_nodes <- html_nodes(doc, "pre code.sourceCode.r")
 
   for (node in text_code_nodes) {
     highlight_text_node(node)
@@ -134,7 +134,7 @@ remove_classes <- function(node, classes) {
 
 
 style_body <- function(doc) {
-  body <- html_elements(doc, "body")
+  body <- html_nodes(doc, "body")
 
   new_classes <- c(xml_node_classes(body), ace_generic_css_class())
 
