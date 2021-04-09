@@ -21,7 +21,14 @@ Installation
 devtools::install_github("kiendang/rdocsyntax")
 ```
 
-*NOTE: The package depends on the `V8` R package which depends on `libv8`. If you are on Linux you need to either install `libv8` from the package manager of your distro or compile `libv8` yourself. This is not required for MacOS or Windows since binary installation of `V8` (the R package) is available. See [`jeroen/V8`](https://github.com/jeroen/V8) for more details.*
+*NOTE: The package depends on the `V8` R package which depends on `libv8`. If you are on Linux you need to either install `libv8` from the package manager of your distro, compile `libv8` yourself or run the following commands to automatically download a suitable static build of `libv8` during installation of the `V8` R package (`>= 3.4`)*
+
+```r
+Sys.setenv(DOWNLOAD_STATIC_LIBV8 = 1)
+install.packages("V8")
+```
+
+*This is not required for MacOS or Windows since binary installation of `V8` (the R package) is available. See [`jeroen/V8`](https://github.com/jeroen/V8) for more details.*
 
 
 Usage
