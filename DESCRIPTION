@@ -16,7 +16,7 @@ Depends:
 Imports:
     V8,
     xml2,
-    rvest,
+    rvest (>= 1.0.0),
     rstudioapi,
     memoise
 Encoding: UTF-8
