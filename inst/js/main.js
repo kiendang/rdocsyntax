@@ -5,13 +5,11 @@ var highlighter = require('highlight');
 var defaultTheme = require('ace/theme/textmate');
 
 var getThemeS = function getThemeS(theme) {
-  var t = null;
+  var t = defaultTheme;
 
   try {
     t = require("ace/theme/".concat(theme));
-  } catch (_unused) {
-    t = defaultTheme;
-  }
+  } catch (_unused) {}
 
   return t;
 };

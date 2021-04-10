@@ -6,11 +6,11 @@ const defaultTheme = require('ace/theme/textmate')
 
 
 const getThemeS = (theme) => {
-  let t = null
+  let t = defaultTheme
 
   try {
     t = require(`ace/theme/${theme}`)
-  } catch { t = defaultTheme }
+  } catch { }
 
   return t
 }
