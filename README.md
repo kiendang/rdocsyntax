@@ -40,6 +40,8 @@ Usage
 rdocsyntax::highlight_html_docs()
 ```
 
+*NOTE: To enable syntax highlighting automatically whenever you start R/Rstudio, put `rdocsyntax::highlight_html_docs()` in your `.Rprofile`.*
+
 Code in HTML documents is now highlighted
 
 ```r
