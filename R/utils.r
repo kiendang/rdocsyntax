@@ -33,3 +33,15 @@ assign_in_namespace <- function(x, value, ns) {
   on.exit(.BaseNamespaceEnv$lockBinding(x, namespace))
   assign(x, value, envir = namespace)
 }
+
+bool_option <- function(opt) {
+  length(v <- getOption(opt)) && v
+}
+
+debugging <- function() {
+  bool_option("rdocsyntax.dev")
+}
+
+verbose <- function() {
+  bool_option("rdocsyntax.verbose")
+}
