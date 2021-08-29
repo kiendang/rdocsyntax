@@ -32,7 +32,7 @@ new_httpd <- function() {
         names(response) <- ifelse(names(response) == "file", "payload", names(response))
       }
     }, error = function(e) {
-      if (length(dev <- getOption("rdocsyntax.dev")) && dev) {
+      if (debugging()) {
         print(sprintf("Error with rdocsyntax help server: %s", e))
       }
     })

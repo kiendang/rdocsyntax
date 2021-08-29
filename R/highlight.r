@@ -21,7 +21,24 @@ highlight_html <- function(html) {
 
   replace_theme_css_class(doc, ace_default_css_class(), ace_generic_css_class())
 
-  as.character(doc, options = c())
+  res <- as.character(doc, options = c())
+
+  if (is.na(charset <- localeToCharset()) ||
+    (enc <- Encoding(res)) == charset ||
+    inherits(
+      converted <- try(iconv(res, from = enc, to = charset), silent = TRUE),
+      "try-error") ||
+    is.na(converted)
+  ) {
+    if (verbose() && debugging() && (is.na(dif <- enc != charset) || dif)) {
+      print(sprintf("locale (LC_CTYPE): %s", Sys.getlocale("LC_CTYPE")))
+      print(sprintf("charset: %s", charset))
+      print(sprintf("encoding %s", enc))
+      print(sprintf("iconv %s", converted))
+    }
+
+    res
+  } else converted
 }
 
 
