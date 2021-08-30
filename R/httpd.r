@@ -18,24 +18,26 @@ get_httpd <- function() {
 new_httpd <- function() {
   httpd <- get_original_httpd()
 
-  function(...) {
-    response <- httpd(...)
+  function(path, ...) {
+    response <- httpd(path, ...)
 
-    tryCatch({
-      if (length(payload <- response[["payload"]]) && is_html_payload(response)) {
-        response[["payload"]] <- highlight_html(payload)
-      } else if (
-        length(file <- response[["file"]]) &&
-        (tolower(file_ext(file)) == "html" || is_html_file(response))
-      ) {
-        response[["file"]] <- highlight_html(read_text(file))
-        names(response) <- ifelse(names(response) == "file", "payload", names(response))
-      }
-    }, error = function(e) {
-      if (debugging()) {
-        print(sprintf("Error with rdocsyntax help server: %s", e))
-      }
-    })
+    if (grepl("^/(doc|library)/", path)) {
+      tryCatch({
+        if (length(payload <- response[["payload"]]) && is_html_payload(response)) {
+          response[["payload"]] <- highlight_html(payload)
+        } else if (
+          length(file <- response[["file"]]) &&
+          (tolower(file_ext(file)) == "html" || is_html_file(response))
+        ) {
+          response[["file"]] <- highlight_html(read_text(file))
+          names(response) <- ifelse(names(response) == "file", "payload", names(response))
+        }
+      }, error = function(e) {
+        if (debugging()) {
+          print(sprintf("Error with rdocsyntax help server: %s", e))
+        }
+      })
+    }
 
     response
   }
