@@ -41,7 +41,3 @@ bool_option <- function(opt) {
 debugging <- function() {
   bool_option("rdocsyntax.dev")
 }
-
-verbose <- function() {
-  bool_option("rdocsyntax.verbose")
-}
