@@ -41,3 +41,13 @@ bool_option <- function(opt) {
 debugging <- function() {
   bool_option("rdocsyntax.dev")
 }
+
+native_encoding <- function() {
+  l10n <- l10n_info()
+
+  if (l10n$`UTF-8`) {
+    "UTF-8"
+  } else if (l10n$`Latin-1`) {
+    "latin1"
+  } else ""
+}

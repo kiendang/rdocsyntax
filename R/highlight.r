@@ -1,5 +1,9 @@
 highlight_html <- function(html) {
-  doc <- read_html(html)
+  highlight_html_enc(html, encoding = native_encoding())
+}
+
+highlight_html_enc <- function(html, encoding = "") {
+  doc <- read_html(html, encoding = encoding)
 
   if (!rstudioapi::isAvailable()) {
     theme <- get_user_theme()
@@ -21,7 +25,7 @@ highlight_html <- function(html) {
 
   replace_theme_css_class(doc, ace_default_css_class(), ace_generic_css_class())
 
-  as.character(doc, options = c())
+  as.character(doc, options = c(), encoding = encoding)
 }
 
 
