@@ -18,13 +18,13 @@ The syntax highlighter comes from [Ace text editor](https://ace.c9.io/), the sam
 Installation
 ------------
 
-either binary via [R-universe](https://kiendang.r-universe.dev) (recommended)
+The package can be installed via [R-universe](https://kiendang.r-universe.dev) (recommended)
 
 ```r
 install.packages("rdocsyntax", repos = "https://kiendang.r-universe.dev")
 ```
 
-or from source via Github
+or Github
 
 ```r
 # install.packages("remotes")
@@ -173,6 +173,12 @@ clone the repo
 git clone https://github.com/kiendang/rdocsyntax.git
 cd rdocsyntax
 git submodule update --init
+```
+
+install js dependencies
+
+```sh
+yarn install
 ```
 
 rebuild the javascript files (only needed if the files in `srcjs` are updated)
