@@ -10,7 +10,7 @@ highlight_html_enc <- function(html, encoding = "", call_js = call_js_()) {
   doc <- read_html(html, encoding = encoding)
 
   if (!rstudioapi::isAvailable()) {
-    theme <- get_user_theme(call_js)
+    theme <- get_user_theme(call_js = call_js)
     add_css(doc, theme$cssText)
     add_css(doc, if (theme$isDark) dark_css else light_css)
     style_body(doc)
@@ -20,11 +20,11 @@ highlight_html_enc <- function(html, encoding = "", call_js = call_js_()) {
   html_code_nodes <- html_nodes(doc, "pre code.sourceCode.r")
 
   for (node in text_code_nodes) {
-    highlight_text_node(node, call_js)
+    highlight_text_node(node, call_js = call_js)
   }
 
   for (node in html_code_nodes) {
-    highlight_html_node(node, call_js)
+    highlight_html_node(node, call_js = call_js)
   }
 
   replace_theme_css_class(doc, ace_default_css_class(), ace_generic_css_class())
@@ -44,9 +44,9 @@ get_user_theme <- function(call_js = call_js_()) {
     length(theme <- getOption("rdocsyntax.theme")) &&
     is.character(theme)
   ) {
-    get_theme(theme[1], call_js)
+    get_theme(theme[1], call_js = call_js)
   } else {
-    get_theme(call_js)
+    get_theme(call_js = call_js)
   }
 }
 
@@ -74,7 +74,7 @@ highlight_node <- function(node, call_js = call_js_()) {
   }
 
   highlighted <- html_node(
-    read_html(highlight_text(code, call_js)),
+    read_html(highlight_text(code, call_js = call_js)),
     "body > div[class*=\"ace\"]"
   )
   remove_indent_guides(highlighted)
@@ -84,7 +84,7 @@ highlight_node <- function(node, call_js = call_js_()) {
 
 
 highlight_text_node <- function(node, call_js = call_js_()) {
-  highlighted <- highlight_node(node, call_js)
+  highlighted <- highlight_node(node, call_js = call_js)
 
   xml_text(node) <- ""
 
@@ -93,7 +93,7 @@ highlight_text_node <- function(node, call_js = call_js_()) {
 
 
 highlight_html_node <- function(node, call_js = call_js_()) {
-  highlighted <- highlight_node(node, call_js)
+  highlighted <- highlight_node(node, call_js = call_js)
   remove_classes(highlighted, ace_default_css_class())
 
   texts <- xml_find_all(node, ".//text()")
