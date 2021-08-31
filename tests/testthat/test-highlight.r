@@ -1,5 +1,5 @@
 test_unmodified_text_after_highlight <- function(code) {
-  highlighted <- call_js("highlightCode", code)
+  highlighted <- call_js_()("highlightCode", code)
   parsed <- read_xml(highlighted, options = c())
   after_text <- xml_text(parsed)
   expect_identical(trimws(code), trimws(after_text))
@@ -54,7 +54,7 @@ test_that("test code is unmodified after syntax highlighting", {
 
 
 test_newline_inline_notrun <- function(code, expected) {
-  highlighted <- call_js("highlight", code)
+  highlighted <- call_js_()("highlight", code)
   parsed <- read_xml(highlighted, options = c())
   after_text <- xml_text(parsed)
   expect_identical(trimws(after_text), trimws(expected))

@@ -6,11 +6,12 @@ tempf <- function(content, ...) {
 }
 
 
-call_js <- function(f, ...) {
+call_js_ <- function() {
   ctx <- v8()
   ctx$eval(app_js)
   ctx$eval(main_js)
-  ctx$call(f, ...)
+
+  function(f, ...) ctx$call(f, ...)
 }
 
 
