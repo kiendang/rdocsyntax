@@ -1,5 +1,9 @@
 highlight_html <- function(html) {
-  highlight_html_enc(html, encoding = native_encoding())
+  if ((encoding <- Encoding(html)) == "unknown") {
+    encoding <- native_encoding()
+  }
+
+  highlight_html_enc(html, encoding = encoding)
 }
 
 highlight_html_enc <- function(html, encoding = "") {
@@ -25,7 +29,7 @@ highlight_html_enc <- function(html, encoding = "") {
 
   replace_theme_css_class(doc, ace_default_css_class(), ace_generic_css_class())
 
-  as.character(doc, options = c(), encoding = encoding)
+  as.character(doc, options = c(), encoding = native_encoding())
 }
 
 

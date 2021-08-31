@@ -29,8 +29,9 @@ new_httpd <- function() {
           length(file <- response[["file"]]) &&
           (tolower(file_ext(file)) == "html" || is_html_file(response))
         ) {
-          response[["file"]] <- highlight_html(read_text(file))
-          names(response) <- ifelse(names(response) == "file", "payload", names(response))
+          response[["file"]] <- highlight_html_enc(read_file(file), "UTF-8")
+          names(response) <-
+            ifelse(names(response) == "file", "payload", names(response))
         }
       }, error = function(e) {
         if (debugging()) {
