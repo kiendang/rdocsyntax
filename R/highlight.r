@@ -1,16 +1,16 @@
-highlight_html <- function(html) {
+highlight_html <- function(html, call_js = call_js_()) {
   if ((encoding <- Encoding(html)) == "unknown") {
     encoding <- native_encoding()
   }
 
-  highlight_html_enc(html, encoding = encoding)
+  highlight_html_enc(html, encoding = encoding, call_js)
 }
 
-highlight_html_enc <- function(html, encoding = "") {
+highlight_html_enc <- function(html, encoding = "", call_js = call_js_()) {
   doc <- read_html(html, encoding = encoding)
 
   if (!rstudioapi::isAvailable()) {
-    theme <- get_user_theme()
+    theme <- get_user_theme(call_js)
     add_css(doc, theme$cssText)
     add_css(doc, if (theme$isDark) dark_css else light_css)
     style_body(doc)
@@ -20,11 +20,11 @@ highlight_html_enc <- function(html, encoding = "") {
   html_code_nodes <- html_nodes(doc, "pre code.sourceCode.r")
 
   for (node in text_code_nodes) {
-    highlight_text_node(node)
+    highlight_text_node(node, call_js)
   }
 
   for (node in html_code_nodes) {
-    highlight_html_node(node)
+    highlight_html_node(node, call_js)
   }
 
   replace_theme_css_class(doc, ace_default_css_class(), ace_generic_css_class())
@@ -33,25 +33,25 @@ highlight_html_enc <- function(html, encoding = "") {
 }
 
 
-highlight_text <- function(s) {
+highlight_text <- function(s, call_js = call_js_()) {
   call_js("highlight", s)
 }
 
 
-get_user_theme <- function() {
+get_user_theme <- function(call_js = call_js_()) {
   if (
     (!rstudioapi::isAvailable()) &&
     length(theme <- getOption("rdocsyntax.theme")) &&
     is.character(theme)
   ) {
-    get_theme(theme[1])
+    get_theme(theme[1], call_js)
   } else {
-    get_theme()
+    get_theme(call_js)
   }
 }
 
 
-get_theme <- function(theme) {
+get_theme <- function(theme, call_js = call_js_()) {
   t <- if (missing(theme)) call_js("getTheme") else call_js("getTheme", theme)
   t$cssText <- gsub(t$cssClass, ace_generic_css_class(), t$cssText)
   t
@@ -68,13 +68,13 @@ ace_generic_css_class <- function() { "ace_editor_theme" }
 ace_default_css_class <- function() { "ace-tm" }
 
 
-highlight_node <- function(node) {
+highlight_node <- function(node, call_js = call_js_()) {
   if (!length(code <- html_text(node)) || { code <- trimws(code) } == "") {
     return(node)
   }
 
   highlighted <- html_node(
-    read_html(highlight_text(code)),
+    read_html(highlight_text(code, call_js)),
     "body > div[class*=\"ace\"]"
   )
   remove_indent_guides(highlighted)
@@ -83,8 +83,8 @@ highlight_node <- function(node) {
 }
 
 
-highlight_text_node <- function(node) {
-  highlighted <- highlight_node(node)
+highlight_text_node <- function(node, call_js = call_js_()) {
+  highlighted <- highlight_node(node, call_js)
 
   xml_text(node) <- ""
 
@@ -92,8 +92,8 @@ highlight_text_node <- function(node) {
 }
 
 
-highlight_html_node <- function(node) {
-  highlighted <- highlight_node(node)
+highlight_html_node <- function(node, call_js = call_js_()) {
+  highlighted <- highlight_node(node, call_js)
   remove_classes(highlighted, ace_default_css_class())
 
   texts <- xml_find_all(node, ".//text()")
