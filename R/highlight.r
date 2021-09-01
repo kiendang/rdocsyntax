@@ -1,13 +1,5 @@
-highlight_html <- function(html, call_js = call_js_()) {
-  if ((encoding <- Encoding(html)) == "unknown") {
-    encoding <- native_encoding()
-  }
-
-  highlight_html_enc(html, encoding = encoding, call_js)
-}
-
-highlight_html_enc <- function(html, encoding = "", call_js = call_js_()) {
-  doc <- read_html(html, encoding = encoding)
+highlight_html <- function(html, encoding = "", call_js = call_js_()) {
+  doc <- read_html(html)
 
   if (!rstudioapi::isAvailable()) {
     theme <- get_user_theme(call_js = call_js)
@@ -29,7 +21,11 @@ highlight_html_enc <- function(html, encoding = "", call_js = call_js_()) {
 
   replace_theme_css_class(doc, ace_default_css_class(), ace_generic_css_class())
 
-  as.character(doc, options = c(), encoding = native_encoding())
+  iconv(
+    as.character(doc, options = c(), encoding = encoding),
+    from = encoding,
+    to = ""
+  )
 }
 
 
