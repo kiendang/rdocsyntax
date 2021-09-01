@@ -24,13 +24,22 @@ new_httpd <- function() {
     if (grepl("^/(doc|library)/", path)) {
       tryCatch({
         if (length(payload <- response[["payload"]]) && is_html_payload(response)) {
-          response[["payload"]] <- highlight_html(payload, call_js = call_js_())
+          fileRegexp <- "^/library/+([^/]*)/html/([^/]*)\\.html$"
+
+          encoding <-
+            if (grepl(fileRegexp, path) && {
+              pkg <- sub(fileRegexp, "\\1", path)
+              length(enc <- packageDescription(pkg)[["Encoding"]])
+            } && enc == "UTF-8") "UTF-8" else native_encoding()
+
+          response[["payload"]] <-
+            highlight_html(payload, encoding = encoding, call_js = call_js_())
         } else if (
           length(file <- response[["file"]]) &&
           (tolower(file_ext(file)) == "html" || is_html_file(response))
         ) {
           response[["file"]] <-
-            highlight_html_enc(read_file(file), "UTF-8", call_js = call_js_())
+            highlight_html(read_file(file), native_encoding(), call_js = call_js_())
           names(response) <-
             ifelse(names(response) == "file", "payload", names(response))
         }
