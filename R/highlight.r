@@ -1,5 +1,5 @@
 highlight_html <- function(html, encoding = "", call_js = call_js_()) {
-  doc <- read_html(html)
+  doc <- read_html(html, encoding = encoding)
 
   if (!rstudioapi::isAvailable()) {
     theme <- get_user_theme(call_js = call_js)
