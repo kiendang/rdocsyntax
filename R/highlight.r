@@ -21,11 +21,11 @@ highlight_html <- function(html, encoding = "", call_js = call_js_()) {
 
   replace_theme_css_class(doc, ace_default_css_class(), ace_generic_css_class())
 
-  iconv(
-    as.character(doc, options = c(), encoding = encoding),
-    from = encoding,
-    to = ""
-  )
+  highlighted_html <- as.character(doc, options = c(), encoding = encoding)
+
+  if (is.na(native <- iconv(highlighted_html, from = encoding, to = "")))
+    highlighted_html
+  else native
 }
 
 
