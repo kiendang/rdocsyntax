@@ -31,6 +31,8 @@ or Github
 remotes::install_github("kiendang/rdocsyntax")
 ```
 
+*__Warning__: Currently the package is not working reliably on windows. If the main branch does not work for you, you can try version `v0.5.2` `remotes::install_github("kiendang/rdocsyntax", ref = "v0.5.2")`. Neither version is confirmed to work 100%, however.*
+
 *__Note__: The package depends on the `V8` R package which depends on `libv8`. If you are on Linux you need to either install `libv8` from the package manager of your distro, compile `libv8` yourself or run the following commands to automatically download a suitable static build of `libv8` during installation of the `V8` R package (`>= 3.4`)*
 
 ```r
