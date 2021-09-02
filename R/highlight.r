@@ -1,6 +1,33 @@
-highlight_html <- function(html, encoding = "", call_js = call_js_()) {
-  doc <- read_html(html)
+highlight_html_file <- function(html, call_js = call_js_()) {
+  if (!file.exists(html))
+    stop(sprintf("file %s doesn't exists", html))
 
+  doc <- read_html(html)
+  highlight_html_tree(doc, call_js = call_js)
+
+  out <- as.character(doc, options = c())
+  if (.Platform$OS.type == "windows" && rstudioapi::isAvailable()) {
+    Encoding(out) <- "unknown"
+  }
+  out
+}
+
+
+highlight_html <- function(html, call_js = call_js_()) {
+  Encoding(html) <- "UTF-8"
+
+  doc <- read_html(html)
+  highlight_html_tree(doc, call_js = call_js)
+
+  out <- as.character(doc, options = c())
+  if (.Platform$OS.type == "windows" && rstudioapi::isAvailable()) {
+    Encoding(out) <- "unknown"
+  }
+  out
+}
+
+
+highlight_html_tree <- function(doc, call_js = call_js_()) {
   if (!rstudioapi::isAvailable()) {
     theme <- get_user_theme(call_js = call_js)
     add_css(doc, theme$cssText)
@@ -20,12 +47,6 @@ highlight_html <- function(html, encoding = "", call_js = call_js_()) {
   }
 
   replace_theme_css_class(doc, ace_default_css_class(), ace_generic_css_class())
-
-  highlighted_html <- as.character(doc, options = c(), encoding = encoding)
-
-  if (is.na(native <- iconv(highlighted_html, from = encoding, to = "")))
-    highlighted_html
-  else native
 }
 
 
