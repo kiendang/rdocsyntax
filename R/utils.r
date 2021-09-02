@@ -36,6 +36,10 @@ debugging <- function() {
   bool_option("rdocsyntax.dev")
 }
 
+enable_extra <- function() {
+  bool_option("rdocsyntax.extra")
+}
+
 native_encoding <- function() {
   l10n <- l10n_info()
 
