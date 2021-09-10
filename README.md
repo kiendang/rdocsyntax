@@ -109,6 +109,18 @@ options(rdocsyntax.theme = "dracula")
 
 The default theme is `textmate` in case `rdocsyntax.theme` is not set or set to an invalid value.
 
+### Vignette syntax highlighting
+
+Due to security reasons by default only code in `?` help pages is syntax highlighted. Syntax highlighting for other pages served by the dynamic help server `httpd` including vignettes can be enabled by setting
+
+```r
+options(rdocsyntax.extra = TRUE)
+```
+
+Code in most vignettes has already been highlighted by default without the need for `rdocsyntax`. However one might still want to enable `rdocsyntax` for vignettes so that the color scheme matches that of RStudio. This is particularly useful with dark RStudio themes since most vignettes use textmate color scheme, which is a light theme and not dark mode friendly, for syntax highlighting.
+
+`rdocsyntax.extra = TRUE` does not affect user defined `httpd` endpoints under `/custom/`, only those under `/doc/` abd `/library/`.
+
 ### Inline `## Not run`
 
 There are `## Not run` code examples that are single line. *e.g* in `?rstudioapi::highlightUi`
