@@ -2,7 +2,7 @@
   baseUrl: ".",
   name: "node_modules/almond/almond.js",
   paths: {
-    "ace": "ace/lib/ace",
+    "ace": "../../ace/lib/ace",
     "highlight": "build/app"
   },
   include: [
@@ -47,5 +47,5 @@
     "ace/theme/clouds_midnight"
   ],
   optimize: "uglify",
-  out: "inst/js/app.js"
+  out: "../../inst/server/js/app.js"
 })

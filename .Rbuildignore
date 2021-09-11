@@ -18,11 +18,13 @@
 
 ^scripts$
 ^srcjs$
+^js$
 ^build$
 ^ace$
 ^build\.js$
 
 ^package\.json$
+^lerna\.json$
 ^node_modules$
 ^yarn\.lock$
 ^webpack\.config\.js$

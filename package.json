@@ -1,17 +1,14 @@
 {
   "name": "rdocsyntax",
-  "version": "0.5.4",
+  "version": "0.0.1",
   "author": "Kien Dang",
   "license": "GPL-3.0",
+  "private": true,
   "scripts": {
-    "build": "rm -rf build && babel srcjs -d build && r.js -o build.js && cp build/main.js inst/js/main.js"
+    "build": "lerna run build --parallel",
+    "clean": "lerna run clean --parallel"
   },
   "devDependencies": {
-    "@babel/cli": "^7.12.13",
-    "@babel/core": "^7.12.13",
-    "@babel/preset-env": "^7.12.13",
-    "almond": "^0.3.3",
-    "requirejs": "^2.3.6"
-  },
-  "dependencies": {}
+    "lerna": "^4.0.0"
+  }
 }
