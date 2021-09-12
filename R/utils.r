@@ -49,3 +49,7 @@ native_encoding <- function() {
     "latin1"
   } else ""
 }
+
+is_rstudio <- function() {
+  Sys.getenv("RSTUDIO") == "1"
+}

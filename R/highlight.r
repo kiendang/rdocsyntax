@@ -6,7 +6,7 @@ highlight_html_file <- function(html, call_js = call_js_()) {
   highlight_html_tree(doc, call_js = call_js)
 
   out <- as.character(doc, options = c())
-  if (.Platform$OS.type == "windows" && rstudioapi::isAvailable()) {
+  if (.Platform$OS.type == "windows" && is_rstudio()) {
     Encoding(out) <- "unknown"
   }
   out
@@ -20,7 +20,7 @@ highlight_html <- function(html, call_js = call_js_()) {
   highlight_html_tree(doc, call_js = call_js)
 
   out <- as.character(doc, options = c())
-  if (.Platform$OS.type == "windows" && rstudioapi::isAvailable()) {
+  if (.Platform$OS.type == "windows" && is_rstudio()) {
     Encoding(out) <- "unknown"
   }
   out
@@ -28,7 +28,7 @@ highlight_html <- function(html, call_js = call_js_()) {
 
 
 highlight_html_tree <- function(doc, call_js = call_js_()) {
-  if (!rstudioapi::isAvailable()) {
+  if (!is_rstudio()) {
     theme <- get_user_theme(call_js = call_js)
     add_css(doc, theme$cssText)
     add_css(doc, if (theme$isDark) dark_css else light_css)
@@ -57,7 +57,7 @@ highlight_text <- function(s, call_js = call_js_()) {
 
 get_user_theme <- function(call_js = call_js_()) {
   if (
-    (!rstudioapi::isAvailable()) &&
+    (!is_rstudio()) &&
     length(theme <- getOption("rdocsyntax.theme")) &&
     is.character(theme)
   ) {
