@@ -17,7 +17,6 @@ Imports:
     V8,
     xml2,
     rvest,
-    rstudioapi,
     memoise,
     readr
 Encoding: UTF-8
