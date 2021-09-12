@@ -1,5 +1,9 @@
 # rdocsyntax 0.5.3.9000
 
+## Changes
+
+- Remove `readr` dependency ([#23](https://github.com/kiendang/rdocsyntax/pull/23))
+
 # rdocsyntax 0.5.3
 
 ## Changes
