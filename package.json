@@ -6,7 +6,10 @@
   "private": true,
   "scripts": {
     "build": "lerna run build --parallel",
-    "clean": "lerna run clean --parallel"
+    "clean": "lerna run clean --parallel",
+    "distclean": "lerna run distclean --parallel",
+    "clobber": "yarn distclean && rm -rf node_modules",
+    "bootstrap": "yarn install && lerna bootstrap"
   },
   "devDependencies": {
     "lerna": "^4.0.0"

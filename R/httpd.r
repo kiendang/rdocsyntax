@@ -29,11 +29,15 @@ new_httpd <- function() {
           is_html_payload(response) &&
           grepl(fileRegexp, path)
         ) {
-          response[["payload"]] <- highlight_html(payload, call_js = call_js_())
+          response[["payload"]] <-
+            if (server_side_highlighting()) {
+              highlight_html(payload, call_js = call_js_())
+            } else highlight_html_client(payload)
         } else if (
           length(file <- response[["file"]]) &&
           (tolower(file_ext(file)) == "html" || is_html_file(response)) &&
-          enable_extra()
+          enable_extra() &&
+          server_side_highlighting()
         ) {
           response[["file"]] <- highlight_html_file(file, call_js = call_js_())
 

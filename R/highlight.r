@@ -1,3 +1,15 @@
+highlight_html_client <- function(html) {
+  doc <- read_html(html)
+
+  xml_add_child(
+    html_node(doc, "head"),
+    xml_new_root("script", type = "text/javascript", bundle_js)
+  )
+
+  as.character(doc, options = c())
+}
+
+
 highlight_html_file <- function(html, call_js = call_js_()) {
   if (!file.exists(html))
     stop(sprintf("file %s doesn't exists", html))

@@ -1,10 +1,12 @@
 {
-  "name": "rdocsyntax-server",
+  "name": "@rdocsyntax/server",
   "version": "0.0.1",
   "author": "Kien Dang",
   "license": "GPL-3.0",
   "scripts": {
-    "build": "rm -rf build && babel src -d build && r.js -o build.js && cp build/main.js ../../inst/server/js/main.js"
+    "build": "rm -rf build && babel src -d build && r.js -o build.js && cp build/main.js ../../inst/server/js/main.js",
+    "clean": "rm -rf build ../../inst/server/js",
+    "distclean": "yarn clean && rm -rf node_modules"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.13",

@@ -37,7 +37,8 @@ let addLineBreakNotRun = (s) => s
 
 
 try {
-  const inlineNotRunRegex = new RegExp('(?<=^[^\\S\\n\\r]*##[^\\S\\n\\r]+Not run:)[^\\S\\n\\r]+', 'gm')
+  const inlineNotRunRegex =
+    new RegExp('(?<=^[^\\S\\n\\r]*##[^\\S\\n\\r]+Not run:)[^\\S\\n\\r]+', 'gm')
   addLineBreakNotRun = (s) => s.replace(inlineNotRunRegex, '\n')
 } catch (e) {
   if (!e instanceof SyntaxError) {

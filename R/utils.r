@@ -29,7 +29,7 @@ assign_in_namespace <- function(x, value, ns) {
 }
 
 bool_option <- function(opt) {
-  length(v <- getOption(opt)) && v
+  length(v <- getOption(opt)) && !is.na(v) && v
 }
 
 debugging <- function() {
@@ -38,6 +38,10 @@ debugging <- function() {
 
 enable_extra <- function() {
   bool_option("rdocsyntax.extra")
+}
+
+server_side_highlighting <- function() {
+  bool_option("rdocsyntax.server_side_highlighting")
 }
 
 native_encoding <- function() {
