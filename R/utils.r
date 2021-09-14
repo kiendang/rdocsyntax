@@ -28,31 +28,26 @@ assign_in_namespace <- function(x, value, ns) {
   assign(x, value, envir = namespace)
 }
 
+
 bool_option <- function(opt) {
   length(v <- getOption(opt)) && !is.na(v) && v
 }
+
 
 debugging <- function() {
   bool_option("rdocsyntax.dev")
 }
 
+
 enable_extra <- function() {
   bool_option("rdocsyntax.extra")
 }
+
 
 server_side_highlighting <- function() {
   bool_option("rdocsyntax.server_side_highlighting")
 }
 
-native_encoding <- function() {
-  l10n <- l10n_info()
-
-  if (l10n$`UTF-8`) {
-    "UTF-8"
-  } else if (l10n$`Latin-1`) {
-    "latin1"
-  } else ""
-}
 
 is_rstudio <- function() {
   Sys.getenv("RSTUDIO") == "1"
