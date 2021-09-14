@@ -5,7 +5,7 @@ highlight_html_client <- function(html) {
     html_node(doc, "head"),
     xml_new_root(
       "script",
-      type = "text/javascript",
+      defer = "defer",
       src = "/rdocsyntax/bundle.js"
     )
   )
