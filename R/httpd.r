@@ -31,7 +31,19 @@ new_httpd <- function() {
         ) {
           response[["payload"]] <-
             if (server_side_highlighting()) {
-              highlight_html(payload, call_js = call_js_())
+              if (!requireNamespace("V8", quietly = TRUE)) {
+                if (debugging()) {
+                  cat(
+                    "Warning: rdocsyntax:",
+                    "Package \"V8\" needed for server side highlighting to work.",
+                    "Revert to client side highlighting for now.",
+                    "Set to client side highlighting permanently with",
+                    "\"options(rdocsyntax.server_side_highlighting = NULL)\""
+                  )
+                }
+
+                highlight_html_client(payload)
+              } else highlight_html(payload, call_js = call_js_())
             } else highlight_html_client(payload)
         } else if (
           length(file <- response[["file"]]) &&
@@ -39,14 +51,24 @@ new_httpd <- function() {
           enable_extra() &&
           server_side_highlighting()
         ) {
-          response[["file"]] <- highlight_html_file(file, call_js = call_js_())
+          if (!requireNamespace("V8", quietly = TRUE)) {
+            if (debugging()) {
+              cat(
+                "Warning: rdocsyntax:",
+                "Package \"V8\" needed for server side highlighting to work."
+              )
+            }
+          } else {
+            response[["file"]] <-
+              highlight_html_file(file, call_js = call_js_())
 
-          names(response) <-
-            ifelse(names(response) == "file", "payload", names(response))
+            names(response) <-
+              ifelse(names(response) == "file", "payload", names(response))
+          }
         }
       }, error = function(e) {
         if (debugging()) {
-          print(sprintf("Error with rdocsyntax help server: %s", e))
+          cat(sprintf("Error with rdocsyntax help server: %s", e))
         }
       })
     }

@@ -1,4 +1,3 @@
-#' @importFrom V8 v8
 #' @importFrom utils assignInMyNamespace packageName
 #' @importFrom tools file_ext
 #' @import xml2
