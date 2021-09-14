@@ -20,10 +20,10 @@ new_httpd <- function() {
   fileRegexp <- "^/library/+([^/]*)/html/([^/]*)\\.html$"
 
   function(path, ...) {
-    response <- httpd(path, ...)
+    tryCatch({
+      if (grepl("^/(doc|library)/", path)) {
+        response <- httpd(path, ...)
 
-    if (grepl("^/(doc|library)/", path)) {
-      tryCatch({
         if (
           length(payload <- response[["payload"]]) &&
           is_html_payload(response) &&
@@ -66,14 +66,23 @@ new_httpd <- function() {
               ifelse(names(response) == "file", "payload", names(response))
           }
         }
-      }, error = function(e) {
-        if (debugging()) {
-          cat(sprintf("Error with rdocsyntax help server: %s", e))
-        }
-      })
-    }
 
-    response
+        response
+      } else if (!server_side_highlighting()) {
+        bundle_regexp <- "^/rdocsyntax/bundle.js$"
+
+        if (grepl(bundle_regexp, path)) {
+          response <- list(
+            file = system.file("client", "js", "bundle.js", package = packageName()),
+            "content-type" = "text/javascript"
+          )
+        }
+      }
+    }, error = function(e) {
+      if (debugging()) {
+        cat(sprintf("Error with rdocsyntax help server: %s", e))
+      }
+    })
   }
 }
 

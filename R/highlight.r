@@ -3,7 +3,11 @@ highlight_html_client <- function(html) {
 
   xml_add_child(
     html_node(doc, "head"),
-    xml_new_root("script", type = "text/javascript", bundle_js)
+    xml_new_root(
+      "script",
+      type = "text/javascript",
+      src = "/rdocsyntax/bundle.js"
+    )
   )
 
   as.character(doc, options = c())
