@@ -1,6 +1,14 @@
-highlight_html_client <- function(html) {
-  doc <- read_html(html)
+highlight_html_text_client <- function(html) {
+  highlight_html_text_(html, highlight_html_client)
+}
 
+
+highlight_html_file_client <- function(html) {
+  highlight_html_file_(html, highlight_html_client)
+}
+
+
+highlight_html_client <- function(doc) {
   xml_add_child(
     html_node(doc, "head"),
     xml_new_root(
@@ -9,17 +17,53 @@ highlight_html_client <- function(html) {
       src = "/rdocsyntax/bundle.js"
     )
   )
-
-  as.character(doc, options = c())
 }
 
 
-highlight_html_file <- function(html, call_js = call_js_()) {
-  if (!file.exists(html))
-    stop(sprintf("file %s doesn't exists", html))
+highlight_html_text_server <- function(html) {
+  highlight_html_server(highlight_html_text_server_, highlight_html_text_client)(html)
+}
+
+
+highlight_html_file_server <- function(html) {
+  highlight_html_server(highlight_html_file_server_, highlight_html_file_client)(html)
+}
+
+
+highlight_html_server <- function(highlight, fallback) {
+  if (!requireNamespace("V8", quietly = TRUE)) {
+    if (debugging()) {
+      cat(
+        "Warning: rdocsyntax:",
+        "Package \"V8\" needed for server side highlighting to work.",
+        "Revert to client side highlighting for now.",
+        "Set to client side highlighting permanently with",
+        "\"options(rdocsyntax.server_side_highlighting = NULL)\""
+      )
+    }
+
+    fallback
+  } else function(html) highlight(html, call_js = call_js_())
+}
+
+
+highlight_html_text_server_ <- function(html, call_js = call_js_()) {
+  highlight_html_text_(html,
+    function(html) highlight_html_tree(html, call_js = call_js))
+}
+
+
+highlight_html_file_server_ <- function(html, call_js = call_js_()) {
+  highlight_html_file_(html,
+    function(html) highlight_html_tree(html, call_js = call_js))
+}
+
+
+highlight_html_text_ <- function(html, highlight) {
+  Encoding(html) <- "UTF-8"
 
   doc <- read_html(html)
-  highlight_html_tree(doc, call_js = call_js)
+  highlight(doc)
 
   out <- as.character(doc, options = c())
   if (.Platform$OS.type == "windows" && is_rstudio()) {
@@ -29,8 +73,24 @@ highlight_html_file <- function(html, call_js = call_js_()) {
 }
 
 
-highlight_html <- function(html, call_js = call_js_()) {
-  Encoding(html) <- "UTF-8"
+highlight_html_file_<- function(html, highlight) {
+  if (!file.exists(html))
+    stop(sprintf("file %s doesn't exists", html))
+
+  doc <- read_html(html)
+  highlight(doc)
+
+  out <- as.character(doc, options = c())
+  if (.Platform$OS.type == "windows" && is_rstudio()) {
+    Encoding(out) <- "unknown"
+  }
+  out
+}
+
+
+highlight_html_file_server <- function(html, call_js = call_js_()) {
+  if (!file.exists(html))
+    stop(sprintf("file %s doesn't exists", html))
 
   doc <- read_html(html)
   highlight_html_tree(doc, call_js = call_js)
