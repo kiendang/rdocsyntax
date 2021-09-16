@@ -18,7 +18,6 @@ get_httpd <- function() {
 new_httpd <- function() {
   httpd <- get_original_httpd()
 
-  file_regexp <- "^/library/+([^/]*)/html/([^/]*)\\.html$"
   bundle_regexp <- "^/rdocsyntax/bundle.js$"
 
   not_found <- error_page("URL not found", 404L)
@@ -46,8 +45,7 @@ new_httpd <- function() {
         if (grepl("^/(doc|library)/", path)) {
           if (
             length(payload <- response[["payload"]]) &&
-            is_html_payload(response) &&
-            grepl(file_regexp, path)
+            is_html_payload(response)
           ) {
             response[["payload"]] <- highlight_html_text(payload)
           } else if (
