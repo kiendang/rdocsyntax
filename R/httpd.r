@@ -17,8 +17,11 @@ get_httpd <- function() {
 
 new_httpd <- function() {
   httpd <- get_original_httpd()
+
   file_regexp <- "^/library/+([^/]*)/html/([^/]*)\\.html$"
   bundle_regexp <- "^/rdocsyntax/bundle.js$"
+
+  not_found <- error_page("URL not found", 404L)
 
   function(path, ...) {
     highlight_html_text <- if (server_side_highlighting()) {
@@ -30,34 +33,43 @@ new_httpd <- function() {
     } else highlight_html_file_client
 
     tryCatch({
-      if (grepl("^/(doc|library|rdocsyntax)/", path)) {
+      if (grepl("^/rdocsyntax/", path) && !server_side_highlighting()) {
+        if (grepl(bundle_regexp, path)) {
+          list(
+            file = system.file("client", "js", "bundle.js", package = packageName()),
+            "content-type" = "text/javascript"
+          )
+        } else not_found
+      } else {
         response <- httpd(path, ...)
 
-        if (
-          length(payload <- response[["payload"]]) &&
-          is_html_payload(response) &&
-          grepl(file_regexp, path)
-        ) {
-          response[["payload"]] <- highlight_html_text(payload)
-        } else if (
-          length(file <- response[["file"]]) &&
-          (tolower(file_ext(file)) == "html" || is_html_file(response)) &&
-          enable_extra()
-        ) {
-          response[["file"]] <- highlight_html_file(file)
+        if (grepl("^/(doc|library)/", path)) {
+          if (
+            length(payload <- response[["payload"]]) &&
+            is_html_payload(response) &&
+            grepl(file_regexp, path)
+          ) {
+            response[["payload"]] <- highlight_html_text(payload)
+          } else if (
+            length(file <- response[["file"]]) &&
+            (tolower(file_ext(file)) == "html" || is_html_file(response)) &&
+            enable_extra()
+          ) {
+            response[["file"]] <- highlight_html_file(file)
 
-          names(response) <-
-            ifelse(names(response) == "file", "payload", names(response))
-        } else if (!server_side_highlighting()) {
-          if (grepl(bundle_regexp, path)) {
-            response <- list(
-              file = system.file("client", "js", "bundle.js", package = packageName()),
-              "content-type" = "text/javascript"
-            )
+            names(response) <-
+              ifelse(names(response) == "file", "payload", names(response))
+          } else if (!server_side_highlighting()) {
+            if (grepl(bundle_regexp, path)) {
+              response <- list(
+                file = system.file("client", "js", "bundle.js", package = packageName()),
+                "content-type" = "text/javascript"
+              )
+            }
           }
-        }
 
-        response
+          response
+        }
       }
     }, error = function(e) {
       if (debugging()) {
@@ -80,6 +92,20 @@ replace_httpd <- function() {
 
 restore_httpd <- function() {
   assign_httpd(get_original_httpd())
+}
+
+
+response_page <- function(title, msg, code) {
+  list(
+    payload = paste(c(HTMLheader(title), msg, "</div></body></html>"), collapse = "\n"),
+    "content-type" = "text/html",
+    "status code" = code
+  )
+}
+
+
+error_page <- function(msg, code) {
+  response_page("httpd error", msg, code)
 }
 
 
