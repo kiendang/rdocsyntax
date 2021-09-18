@@ -13,7 +13,7 @@ highlight_html_client <- function(doc) {
     html_node(doc, "head"),
     xml_new_root(
       "script",
-      app_js,
+      lib_js,
       client_js
     )
   )

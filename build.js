@@ -10,5 +10,5 @@
     "ace/theme/textmate",
   ],
   optimize: "uglify",
-  out: "inst/js/app.js"
+  out: "inst/js/lib.js"
 })

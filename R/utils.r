@@ -8,8 +8,8 @@ tempf <- function(content, ...) {
 
 call_js_ <- function() {
   ctx <- V8::v8()
-  ctx$eval(app_js)
-  ctx$eval(main_js)
+  ctx$eval(lib_js)
+  ctx$eval(server_js)
 
   function(f, ...) ctx$call(f, ...)
 }

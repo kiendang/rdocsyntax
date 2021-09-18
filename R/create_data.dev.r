@@ -1,7 +1,7 @@
 local({
-  app_js <- readr::read_file(file.path("inst", "js", "app.js"))
-  main_js <- readr::read_file(file.path("inst", "js", "main.js"))
-  client_js <- readr::read_file(file.path("inst", "js", "index.js"))
+  lib_js <- readr::read_file(file.path("inst", "js", "lib.js"))
+  client_js <- readr::read_file(file.path("inst", "js", "client.js"))
+  server_js <- readr::read_file(file.path("inst", "js", "server.js"))
   dark_css <- readr::read_file(file.path("inst", "dark.css"))
   light_css <- readr::read_file(file.path("inst", "light.css"))
 
@@ -85,7 +85,7 @@ local({
 
 
   usethis::use_data(
-    app_js, main_js, client_js, dark_css, light_css, themes,
+    lib_js, client_js, server_js, dark_css, light_css, themes,
     internal = TRUE, overwrite = TRUE
   )
 })
