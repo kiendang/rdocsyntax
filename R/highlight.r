@@ -13,16 +13,8 @@ highlight_html_client <- function(doc) {
     html_node(doc, "head"),
     xml_new_root(
       "script",
-      app_js
-    )
-  )
-
-  xml_add_child(
-    html_node(doc, "head"),
-    xml_new_root(
-      "script",
-      defer = "defer",
-      src = "/rdocsyntax/bundle.js"
+      app_js,
+      client_js
     )
   )
 }
