@@ -66,19 +66,32 @@ local({
 
   ace_generic_css_class <- "ace_editor_theme"
 
-  themes <- sapply(theme_names, function(t) {
+  themes_ <- sapply(theme_names, function(t) {
     theme <- ctx$call("getTheme", t)
     theme$cssText <- gsub(theme$cssClass, ace_generic_css_class, theme$cssText)
     theme
   }, simplify = FALSE, USE.NAMES = TRUE)
 
+  for (theme in themes_) {
+    cat(
+      theme$cssText,
+      file = file.path("inst", "themes", sprintf("%s.css", theme$cssClass))
+    )
+  }
+
+  themes <- sapply(themes_, function(theme) {
+    list(isDark = theme$isDark, cssClass = theme$cssClass)
+  }, simplify = FALSE, USE.NAMES = TRUE)
+
   for (t in theme_names) {
     testthat::expect_true(
-      length(theme <- themes[[t]]) &&
+      !is.null(theme <- themes[[t]]) &&
         is.logical(isDark <- theme$isDark) &&
         !is.na(isDark) && (isDark || TRUE) &&
-        is.character(css <- theme$cssText) &&
-        !is.na(css) && grepl(ace_generic_css_class, css),
+        grepl(
+          ace_generic_css_class,
+          readr::read_file(file.path("inst", "themes", sprintf("%s.css", theme$cssClass)))
+        ),
       label = t
     )
   }

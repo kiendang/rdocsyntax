@@ -129,12 +129,21 @@ get_user_theme <- function() {
 
 
 get_theme <- function(t) {
-  if (
+  theme <- if (
     length(t) &&
     is.character(t) &&
     !is.na(t) &&
-    !is.null(theme <- themes[[t]])
-  ) theme else themes[["textmate"]]
+    !is.null(theme_ <- themes[[t]])
+  ) theme_ else themes[["textmate"]]
+
+  theme$cssText <- trimws(paste(readLines(
+    system.file(
+      "themes", sprintf("%s.css", theme$cssClass),
+      package = packageName()
+    )
+  ), collapse = " "))
+
+  theme
 }
 
 

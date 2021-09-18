@@ -1,2 +1,3 @@
 inst/**/*.html linguist-generated
+inst/**/*.css linguist-vendored
 inst/**/*.js linguist-generated
