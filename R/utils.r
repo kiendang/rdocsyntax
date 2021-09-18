@@ -6,6 +6,11 @@ tempf <- function(content, ...) {
 }
 
 
+read_text <- function(f) {
+  readChar(f, file.info(f)$size)
+}
+
+
 call_js_ <- function() {
   ctx <- V8::v8()
   ctx$eval(lib_js)

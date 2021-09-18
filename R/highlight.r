@@ -136,12 +136,10 @@ get_theme <- function(t) {
     !is.null(theme_ <- themes[[t]])
   ) theme_ else themes[["textmate"]]
 
-  theme$cssText <- trimws(paste(readLines(
-    system.file(
-      "themes", sprintf("%s.css", theme$cssClass),
-      package = packageName()
-    )
-  ), collapse = " "))
+  theme$cssText <- read_text(system.file(
+    "themes", sprintf("%s.css", theme$cssClass),
+    package = packageName()
+  ))
 
   theme
 }

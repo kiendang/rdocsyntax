@@ -6,35 +6,6 @@ var rMode = require('ace/mode/r').Mode;
 
 var defaultTheme = require('ace/theme/textmate');
 
-var getThemeSafe = function getThemeSafe(theme) {
-  var t = defaultTheme;
-
-  try {
-    t = require("ace/theme/".concat(theme));
-  } catch (_unused) {}
-
-  return t;
-};
-
-var isString = function isString(x) {
-  return Object.prototype.toString.call(x) === '[object String]';
-};
-
-var getTheme = function getTheme(theme) {
-  var t = theme !== null && theme !== void 0 ? theme : defaultTheme;
-  var result = isString(t) ? getThemeSafe(t) : t;
-  return function (_ref) {
-    var isDark = _ref.isDark,
-        cssClass = _ref.cssClass,
-        cssText = _ref.cssText;
-    return {
-      isDark: isDark,
-      cssClass: cssClass,
-      cssText: cssText
-    };
-  }(result);
-};
-
 var highlightCode = function highlightCode(s) {
   return highlighter.renderSync(s, new rMode(), defaultTheme, null, true).html;
 };
