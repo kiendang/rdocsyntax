@@ -11,22 +11,24 @@ highlight_html_file_client <- function(html) {
 highlight_html_client <- function(doc) {
   xml_add_child(
     html_node(doc, "head"),
-    xml_new_root(
-      "script",
-      lib_js,
-      client_js
-    )
+    xml_new_root("script", lib_js, client_js)
   )
 }
 
 
 highlight_html_text_server <- function(html) {
-  highlight_html_server(highlight_html_text_server_, highlight_html_text_client)(html)
+  highlight_html_server(
+    highlight_html_text_server_,
+    fallback = highlight_html_text_client
+  )(html)
 }
 
 
 highlight_html_file_server <- function(html) {
-  highlight_html_server(highlight_html_file_server_, highlight_html_file_client)(html)
+  highlight_html_server(
+    highlight_html_file_server_,
+    fallback = highlight_html_file_client
+  )(html)
 }
 
 
@@ -131,8 +133,8 @@ get_theme <- function(t) {
     length(t) &&
     is.character(t) &&
     !is.na(t) &&
-    length(theme <- themes[[t]])
-  ) theme else NULL
+    !is.null(theme <- themes[[t]])
+  ) theme else themes[["textmate"]]
 }
 
 
