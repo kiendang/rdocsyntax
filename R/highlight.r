@@ -71,6 +71,7 @@ highlight_html_text_ <- function(html, highlight) {
   Encoding(html) <- "UTF-8"
 
   doc <- read_html(html)
+  apply_styling(doc)
   highlight(doc)
 
   out <- as.character(doc, options = c())
@@ -86,6 +87,7 @@ highlight_html_file_<- function(html, highlight) {
     stop(sprintf("file %s doesn't exists", html))
 
   doc <- read_html(html)
+  apply_styling(doc)
   highlight(doc)
 
   out <- as.character(doc, options = c())
@@ -96,29 +98,7 @@ highlight_html_file_<- function(html, highlight) {
 }
 
 
-highlight_html_file_server <- function(html, call_js = call_js_()) {
-  if (!file.exists(html))
-    stop(sprintf("file %s doesn't exists", html))
-
-  doc <- read_html(html)
-  highlight_html_tree(doc, call_js = call_js)
-
-  out <- as.character(doc, options = c())
-  if (.Platform$OS.type == "windows" && is_rstudio()) {
-    Encoding(out) <- "unknown"
-  }
-  out
-}
-
-
 highlight_html_tree <- function(doc, call_js = call_js_()) {
-  if (!is_rstudio()) {
-    theme <- get_user_theme()
-    add_css(doc, theme$cssText)
-    add_css(doc, if (theme$isDark) dark_css else light_css)
-    style_body(doc)
-  }
-
   text_code_nodes <- xml_find_all(doc, ".//pre[count(*)=0]")
   html_code_nodes <- html_nodes(doc, "pre code.sourceCode.r")
 
@@ -136,6 +116,16 @@ highlight_html_tree <- function(doc, call_js = call_js_()) {
 
 highlight_text <- function(s, call_js = call_js_()) {
   call_js("highlight", s)
+}
+
+
+apply_styling <- function(doc) {
+  if (!is_rstudio()) {
+    theme <- get_user_theme()
+    add_css(doc, theme$cssText)
+    add_css(doc, if (theme$isDark) dark_css else light_css)
+    style_body(doc)
+  }
 }
 
 
