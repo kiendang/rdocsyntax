@@ -13,6 +13,14 @@ highlight_html_client <- function(doc) {
     html_node(doc, "head"),
     xml_new_root(
       "script",
+      app_js
+    )
+  )
+
+  xml_add_child(
+    html_node(doc, "head"),
+    xml_new_root(
+      "script",
       defer = "defer",
       src = "/rdocsyntax/bundle.js"
     )
@@ -105,7 +113,7 @@ highlight_html_file_server <- function(html, call_js = call_js_()) {
 
 highlight_html_tree <- function(doc, call_js = call_js_()) {
   if (!is_rstudio()) {
-    theme <- get_user_theme(call_js = call_js)
+    theme <- get_user_theme()
     add_css(doc, theme$cssText)
     add_css(doc, if (theme$isDark) dark_css else light_css)
     style_body(doc)
@@ -131,23 +139,18 @@ highlight_text <- function(s, call_js = call_js_()) {
 }
 
 
-get_user_theme <- function(call_js = call_js_()) {
-  if (
-    (!is_rstudio()) &&
-    length(theme <- getOption("rdocsyntax.theme")) &&
-    is.character(theme)
-  ) {
-    get_theme(theme[1], call_js = call_js)
-  } else {
-    get_theme(call_js = call_js)
-  }
+get_user_theme <- function() {
+  get_theme(getOption("rdocsyntax.theme"))
 }
 
 
-get_theme <- function(theme, call_js = call_js_()) {
-  t <- if (missing(theme)) call_js("getTheme") else call_js("getTheme", theme)
-  t$cssText <- gsub(t$cssClass, ace_generic_css_class(), t$cssText)
-  t
+get_theme <- function(t) {
+  if (
+    length(t) &&
+    is.character(t) &&
+    !is.na(t) &&
+    length(theme <- themes[[t]])
+  ) theme else NULL
 }
 
 

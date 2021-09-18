@@ -1,10 +1,12 @@
 var setTimeout = function setTimeout() {};
 
-var highlighter = require('highlight');
+var highlighter = require('ace/ext/static_highlight');
+
+var rMode = require('ace/mode/r').Mode;
 
 var defaultTheme = require('ace/theme/textmate');
 
-var getThemeS = function getThemeS(theme) {
+var getThemeSafe = function getThemeSafe(theme) {
   var t = defaultTheme;
 
   try {
@@ -20,7 +22,7 @@ var isString = function isString(x) {
 
 var getTheme = function getTheme(theme) {
   var t = theme !== null && theme !== void 0 ? theme : defaultTheme;
-  var result = isString(t) ? getThemeS(t) : t;
+  var result = isString(t) ? getThemeSafe(t) : t;
   return function (_ref) {
     var isDark = _ref.isDark,
         cssClass = _ref.cssClass,
@@ -34,7 +36,7 @@ var getTheme = function getTheme(theme) {
 };
 
 var highlightCode = function highlightCode(s) {
-  return highlighter.highlight(s, defaultTheme).html;
+  return highlighter.renderSync(s, new rMode(), defaultTheme, null, true).html;
 };
 
 var addLineBreakNotRun = function addLineBreakNotRun(s) {

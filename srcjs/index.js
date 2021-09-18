@@ -1,9 +1,4 @@
-import 'ace-builds/src-min-noconflict/ace'
-import 'ace-builds/src-min-noconflict/mode-r'
-import 'ace-builds/src-min-noconflict/ext-static_highlight'
-
-
-const highlight = ace.require('ace/ext/static_highlight')
+const highlight = require('ace/ext/static_highlight')
 
 const highlightCode = codeBlocks => {
   codeBlocks.forEach(code => {

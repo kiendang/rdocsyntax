@@ -35,7 +35,7 @@ new_httpd <- function() {
       if (grepl("^/rdocsyntax/", path) && !server_side_highlighting()) {
         if (grepl(bundle_regexp, path)) {
           list(
-            file = system.file("client", "js", "bundle.js", package = packageName()),
+            file = system.file("js", "index.js", package = packageName()),
             "content-type" = "text/javascript"
           )
         } else not_found

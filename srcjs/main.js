@@ -1,11 +1,13 @@
 const setTimeout = () => { }
 
 
-const highlighter = require('highlight')
+const highlighter = require('ace/ext/static_highlight')
+const rMode = require('ace/mode/r').Mode
 const defaultTheme = require('ace/theme/textmate')
 
 
-const getThemeS = (theme) => {
+
+const getThemeSafe = (theme) => {
   let t = defaultTheme
 
   try {
@@ -23,13 +25,13 @@ const isString = (x) => (
 
 const getTheme = (theme) => {
   const t = theme ?? defaultTheme
-  const result = isString(t) ? getThemeS(t) : t
+  const result = isString(t) ? getThemeSafe(t) : t
   return (({ isDark, cssClass, cssText }) => ({ isDark, cssClass, cssText }))(result)
 }
 
 
 const highlightCode = (s) => (
-  highlighter.highlight(s, defaultTheme).html
+  highlighter.renderSync(s, new rMode(), defaultTheme, null, true).html
 )
 
 
