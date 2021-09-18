@@ -1,5 +1,5 @@
 #' @importFrom utils assignInMyNamespace packageName
-#' @importFrom tools file_ext HTMLheader
+#' @importFrom tools file_ext
 #' @import xml2
 #' @import rvest
 NULL
