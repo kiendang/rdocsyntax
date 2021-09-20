@@ -117,7 +117,7 @@ options(rdocsyntax.extra = TRUE)
 
 Code in most vignettes has already been highlighted by default without the need for `rdocsyntax`. However one might still want to enable `rdocsyntax` for vignettes so that the color scheme matches that of RStudio. This is particularly useful with dark RStudio themes since most vignettes use textmate color scheme, which is a light theme and not dark mode friendly, for syntax highlighting.
 
-`rdocsyntax.extra = TRUE` does not affect user defined `httpd` endpoints under `/custom/`, only those under `/doc/` abd `/library/`.
+`rdocsyntax.extra = TRUE` does not affect user defined `httpd` endpoints under `/custom/`, only those under `/doc/` and `/library/`.
 
 ### Inline `## Not run`
 
