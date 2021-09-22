@@ -1,4 +1,4 @@
-const highlight = require('ace/ext/static_highlight')
+const highlighter = require('ace/ext/static_highlight')
 
 let addLineBreakNotRun = (s) => s
 
@@ -26,7 +26,7 @@ const removeIndentGuide = code => {
 }
 
 const highlightCode = code => {
-  highlight(code, {
+  highlighter(code, {
     mode: 'ace/mode/r',
     showGutter: false,
     trim: true

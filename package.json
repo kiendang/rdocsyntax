@@ -4,7 +4,11 @@
   "author": "Kien Dang",
   "license": "GPL-3.0",
   "scripts": {
-    "build": "rm -rf build && babel srcjs -d build && r.js -o build.js && cp build/{client.js,server.js} srcjs/LICENSE.lib.js inst/js",
+    "minify:client": "terser -c -m toplevel=true -o build/client.js -- build/client.js",
+    "minify:server": "terser -c -m -o build/server.js -- build/server.js",
+    "minify": "yarn minify:client && yarn minify:server",
+    "transpile": "babel srcjs --delete-dir-on-start -d build",
+    "build": "yarn transpile && yarn minify && r.js -o build.js && cp build/{client.js,server.js} srcjs/LICENSE.lib.js inst/js",
     "clean": "rm -rf build inst/js",
     "distclean": "yarn clean && rm -rf node_modules"
   },
@@ -13,7 +17,7 @@
     "@babel/core": "^7.12.13",
     "@babel/preset-env": "^7.12.13",
     "almond": "^0.3.3",
-    "requirejs": "^2.3.6"
-  },
-  "dependencies": {}
+    "requirejs": "^2.3.6",
+    "terser": "^5.9.0"
+  }
 }
