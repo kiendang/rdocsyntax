@@ -10,10 +10,10 @@ NULL
 #' @return Called for side effects. No return value.
 #'
 #' @details
-#' R HTML help pages are rendered and served using the \link[tools:startDynamicHelp]{internal help server} (\code{httpd}).
-#' This function replaces the original \code{httpd} with one that receives the response from
-#' the original server, checks if the response body contains HTML, then finds and highlights portions of the HTML
-#' that contains code, and finally sends the new response with the HTML highlighted.
+#' R HTML help pages are rendered and served using the \link[tools:startDynamicHelp]{internal help server}
+#' (\code{httpd}). This function enables syntax highlighting by replacing the original \code{httpd} with
+#' one that receives the original HTML doc, makes changes to the HTML so that parts of the doc that
+#' contains code would be highlighted, then serves the modified HTML.
 #'
 #' The syntax highlighter in use comes from the \href{https://ace.c9.io/}{Ace text editor},
 #' the same editor which \href{https://www.rstudio.com/}{Rstudio} uses.
@@ -49,10 +49,29 @@ NULL
 #' The default theme is \code{textmate} in case \code{rdocsyntax.theme} is not set or
 #' set to an invalid value.
 #'
+#' @section Client side and server side highlighting:
+#' The code that does the highlighting is written in JavaScript since it depends on the
+#' \href{Ace static highlighter}{https://github.com/ajaxorg/ace/blob/v1.4.12/lib/ace/ext/static_highlight.js}.
+#' Previously, up to \code{v5.x}, highlighting was done \emph{server side}, \emph{i.e.}
+#' \code{rdocsyntax} used \code{V8} to execute the JavaScript code and finished highlighting
+#' the HTML doc before returning it through \code{httpd}.
+#'
+#' Starting from \code{v6.0}, highlighting has instead been done \emph{client side}.
+#' The JavaScript highlighting code is injected into the original HTML doc in a \code{script} tag
+#' and then executed by whatever browser that eventually displays the doc, either RStudio or
+#' an external browser. Compared to server side highlighting, this is more efficient since
+#' \code{rdocsyntax} no longer has to run its own JavaScript engine.
+#' As a result, the heavy dependency on \code{V8} has been dropped.
+#'
+#' Legacy server side highlighting is still available on an opt-in basis by setting
+#' \code{options(rdocsyntax.server_side_highlighting = TRUE)}.
+#' \code{V8} needs to be installed for this to work.
+#'
 #'
 #' @seealso \code{\link{unhighlight_html_docs}}
 #'
 #' @examples
+#'
 #' \dontrun{
 #' # Enable syntax highlighting
 #' highlight_html_docs()
@@ -65,9 +84,7 @@ NULL
 #'
 #' # Disable syntax highlighting
 #' unhighlight_html_docs()
-#' }
 #'
-#' \dontrun{
 #' # Switch to dracula theme (only takes effect outside of RStudio)
 #' options(rdocsyntax.theme = "dracula")
 #' }
@@ -79,7 +96,6 @@ highlight_html_docs <- function() {
 
 
 #' Disable HTML documentation syntax highlighting
-#'
 #'
 #' @description
 #' Revert to the original help server for handling HTML documentation.
