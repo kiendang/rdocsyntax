@@ -42,18 +42,8 @@ const highlightDocCode = codeBlocks => {
   })
 }
 
-const highlightVignetteCode = codeBlocks => {
-  codeBlocks.forEach(code => {
-    code.innerHTML = code.textContent
-    highlightCode(code)
-    removeIndentGuide(code)
-    replaceAceClass(code)
-  })
-}
-
 const runEverything = () => {
   highlightDocCode(document.querySelectorAll('pre'))
-  highlightVignetteCode(document.querySelectorAll('pre code.sourceCode.r'))
 }
 
 if (document.readyState === 'loading') {
