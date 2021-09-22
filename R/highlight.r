@@ -11,9 +11,12 @@ highlight_html_file_client <- function(html) {
 highlight_html_client <- function(doc) {
   xml_add_child(
     html_node(doc, "head"),
-    xml_new_root("script", lib_js, client_js)
+    "script", id = highlight_script_id(), lib_js, client_js
   )
 }
+
+
+highlight_script_id <- function() { "rdocsyntax_bundle" }
 
 
 highlight_html_text_server <- function(html) {
@@ -116,11 +119,31 @@ highlight_text <- function(s, call_js = call_js_()) {
 apply_styling <- function(doc) {
   if (!is_rstudio()) {
     theme <- get_user_theme()
-    add_css(doc, theme$cssText)
-    add_css(doc, if (theme$isDark) dark_css else light_css)
+    add_css(doc, theme$cssText, id = theme_css_id())
+    add_css(
+      doc,
+      if (theme$isDark) dark_css else light_css,
+      id = scheme_css_id(),
+      class = scheme_css_class(theme$isDark)
+    )
     style_body(doc)
   }
 }
+
+
+theme_css_id <- function() { "rdocsyntax_theme" }
+
+
+dark_scheme_css_class <- function() { "rdocsyntax_dark" }
+light_scheme_css_class <- function() { "rdocsyntax_dark" }
+
+
+scheme_css_class <- function(dark) {
+  if (dark) dark_scheme_css_class() else light_scheme_css_class()
+}
+
+
+scheme_css_id <- function() { "rdocsyntax_scheme" }
 
 
 get_user_theme <- function() {
@@ -145,8 +168,8 @@ get_theme <- function(t) {
 }
 
 
-add_css <- function(doc, css) {
-  xml_add_child(xml_find_first(doc, "//head"), "style", css)
+add_css <- function(doc, css, ...) {
+  xml_add_child(xml_find_first(doc, "//head"), "style", css, ...)
   doc
 }
 
