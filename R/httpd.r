@@ -33,7 +33,10 @@ new_httpd <- function() {
     } else highlight_html_file_client
 
     tryCatch({
-      if (grepl("^/rdocsyntax/", path) && !server_side_highlighting()) {
+      if (
+        grepl("^/rdocsyntax/", path) &&
+        !(server_side_highlighting() && requireNamespace("V8", quietly = TRUE))
+      ) {
         if (grepl(lib_regexp, path)) {
           list(
             file = system.file("js", "lib.js", package = packageName()),
@@ -70,7 +73,7 @@ new_httpd <- function() {
       }
     }, error = function(e) {
       if (debugging()) {
-        cat(sprintf("Error with rdocsyntax help server: %s", e))
+        cat(sprintf("Error with rdocsyntax help server: %s\n", e))
       }
     })
   }

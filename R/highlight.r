@@ -55,7 +55,7 @@ highlight_html_server <- function(highlight, fallback) {
         "Package \"V8\" needed for server side highlighting to work.",
         "Revert to client side highlighting for now.",
         "Set to client side highlighting permanently with",
-        "\"options(rdocsyntax.server_side_highlighting = NULL)\""
+        "\"options(rdocsyntax.server_side_highlighting = NULL)\"\n"
       )
     }
 
