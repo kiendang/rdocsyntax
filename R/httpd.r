@@ -18,6 +18,11 @@ get_httpd <- function() {
 new_httpd <- function() {
   httpd <- get_original_httpd()
 
+  lib_regexp <- "^/rdocsyntax/lib.js$"
+  main_regexp <- "^/rdocsyntax/main.js$"
+
+  not_found <- error_page("URL not found", 404L)
+
   function(path, ...) {
     highlight_html_text <- if (server_side_highlighting()) {
       highlight_html_text_server
@@ -28,27 +33,41 @@ new_httpd <- function() {
     } else highlight_html_file_client
 
     tryCatch({
-      response <- httpd(path, ...)
+      if (grepl("^/rdocsyntax/", path) && !server_side_highlighting()) {
+        if (grepl(lib_regexp, path)) {
+          list(
+            file = system.file("js", "lib.js", package = packageName()),
+            "content-type" = "text/javascript"
+          )
+        } else if (grepl(main_regexp, path)) {
+          list(
+            file = system.file("js", "client.js", package = packageName()),
+            "content-type" = "text/javascript"
+          )
+        } else not_found
+      } else {
+        response <- httpd(path, ...)
 
-      if (grepl("^/(doc|library)/", path)) {
-        if (
-          length(payload <- response[["payload"]]) &&
-          is_html_payload(response)
-        ) {
-          response[["payload"]] <- highlight_html_text(payload)
-        } else if (
-          length(file <- response[["file"]]) &&
-          (tolower(file_ext(file)) == "html" || is_html_file(response)) &&
-          enable_extra()
-        ) {
-          response[["file"]] <- highlight_html_file(file)
+        if (grepl("^/(doc|library)/", path)) {
+          if (
+            length(payload <- response[["payload"]]) &&
+            is_html_payload(response)
+          ) {
+            response[["payload"]] <- highlight_html_text(payload)
+          } else if (
+            length(file <- response[["file"]]) &&
+            (tolower(file_ext(file)) == "html" || is_html_file(response)) &&
+            enable_extra()
+          ) {
+            response[["file"]] <- highlight_html_file(file)
 
-          names(response) <-
-            ifelse(names(response) == "file", "payload", names(response))
+            names(response) <-
+              ifelse(names(response) == "file", "payload", names(response))
+          }
         }
-      }
 
-      response
+        response
+      }
     }, error = function(e) {
       if (debugging()) {
         cat(sprintf("Error with rdocsyntax help server: %s", e))
@@ -70,6 +89,20 @@ replace_httpd <- function() {
 
 restore_httpd <- function() {
   assign_httpd(get_original_httpd())
+}
+
+
+response_page <- function(title, msg, code) {
+  list(
+    payload = paste(c(HTMLheader(title), msg, "</div></body></html>"), collapse = "\n"),
+    "content-type" = "text/html",
+    "status code" = code
+  )
+}
+
+
+error_page <- function(msg, code) {
+  response_page("httpd error", msg, code)
 }
 
 

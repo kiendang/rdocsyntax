@@ -14,9 +14,20 @@ test_that("Highlighting script is attached", {
     parsed <- read_html(highlighted, options = c())
 
     expect_length(
-      html_nodes(parsed, sprintf("script#%s", highlight_script_id())),
+      lib_ <- html_nodes(parsed, sprintf("script#%s", lib_script_id())),
       1
     )
+
+    lib <- lib_[[1]]
+    expect_match(html_attr(lib, "src"), "/rdocsyntax/lib.js")
+
+    expect_length(
+      main_ <- html_nodes(parsed, sprintf("script#%s", main_script_id())),
+      1
+    )
+
+    main <- main_[[1]]
+    expect_match(html_attr(main, "src"), "/rdocsyntax/main.js")
   })
 })
 

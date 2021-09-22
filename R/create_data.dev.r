@@ -98,7 +98,7 @@ local({
 
 
   usethis::use_data(
-    lib_js, client_js, server_js, dark_css, light_css, themes,
+    lib_js, server_js, dark_css, light_css, themes,
     internal = TRUE, overwrite = TRUE
   )
 })

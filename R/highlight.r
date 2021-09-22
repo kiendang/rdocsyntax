@@ -11,12 +11,24 @@ highlight_html_file_client <- function(html) {
 highlight_html_client <- function(doc) {
   xml_add_child(
     html_node(doc, "head"),
-    "script", id = highlight_script_id(), lib_js, client_js
+    "script",
+    id = lib_script_id(),
+    defer = "defer",
+    src = "/rdocsyntax/lib.js"
+  )
+
+  xml_add_child(
+    html_node(doc, "head"),
+    "script",
+    id = main_script_id(),
+    defer = "defer",
+    src = "/rdocsyntax/main.js"
   )
 }
 
 
-highlight_script_id <- function() { "rdocsyntax_bundle" }
+lib_script_id <- function() { "rdocsyntax-lib" }
+main_script_id <- function() { "rdocsyntax-main" }
 
 
 highlight_html_text_server <- function(html) {
@@ -131,11 +143,11 @@ apply_styling <- function(doc) {
 }
 
 
-theme_css_id <- function() { "rdocsyntax_theme" }
+theme_css_id <- function() { "rdocsyntax-theme" }
 
 
-dark_scheme_css_class <- function() { "rdocsyntax_dark" }
-light_scheme_css_class <- function() { "rdocsyntax_dark" }
+dark_scheme_css_class <- function() { "rdocsyntax-dark" }
+light_scheme_css_class <- function() { "rdocsyntax-light" }
 
 
 scheme_css_class <- function(dark) {
@@ -143,7 +155,7 @@ scheme_css_class <- function(dark) {
 }
 
 
-scheme_css_id <- function() { "rdocsyntax_scheme" }
+scheme_css_id <- function() { "rdocsyntax-scheme" }
 
 
 get_user_theme <- function() {
