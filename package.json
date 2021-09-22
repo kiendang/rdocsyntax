@@ -4,7 +4,7 @@
   "author": "Kien Dang",
   "license": "GPL-3.0",
   "scripts": {
-    "build": "rm -rf build && babel srcjs -d build && r.js -o build.js && cp build/{client.js,server.js} inst/js",
+    "build": "rm -rf build && babel srcjs -d build && r.js -o build.js && cp build/{client.js,server.js} srcjs/LICENSE.lib.js inst/js",
     "clean": "rm -rf build inst/js",
     "distclean": "yarn clean && rm -rf node_modules"
   },

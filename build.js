@@ -9,6 +9,7 @@
     "ace/mode/r",
     "ace/theme/textmate",
   ],
+  preserveLicenseComments: false,
   optimize: "uglify",
   out: "inst/js/lib.js"
 })
