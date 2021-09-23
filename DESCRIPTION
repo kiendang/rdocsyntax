@@ -17,12 +17,12 @@ Imports:
     xml2,
     rvest,
     memoise
-Encoding: UTF-8
-LazyData: true
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
 Suggests:
     V8,
     testthat (>= 3.0.0),
     withr
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
 Config/testthat/edition: 3
