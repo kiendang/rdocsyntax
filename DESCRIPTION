@@ -1,12 +1,15 @@
 Package: rdocsyntax
 Title: Syntax Highlighting for R HTML Documentation
 Version: 0.5.4.9000
-Authors@R:
+Authors@R: c(
     person(given = "Trung Kien",
            family = "Dang",
            role = c("aut", "cre"),
            email = "mail@kien.ai",
-           comment = c(ORCID = "0000-0001-7562-6495"))
+           comment = c(ORCID = "0000-0001-7562-6495")),
+    person(given = "Brenton M.",
+           family = "Wiernik",
+           role = "ctb"))
 Description: Provides syntax highlighting for R HTML documentation.
 License: GPL (>= 3)
 URL: https://github.com/kiendang/rdocsyntax
@@ -17,12 +20,12 @@ Imports:
     xml2,
     rvest,
     memoise
-Encoding: UTF-8
-LazyData: true
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
 Suggests:
     V8,
     testthat (>= 3.0.0),
     withr
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
 Config/testthat/edition: 3
