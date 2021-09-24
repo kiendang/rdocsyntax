@@ -143,9 +143,9 @@ R HTML help pages are rendered and served by the internal help server `httpd`. T
 
 #### Client side and server side highlighting
 
-The code that does the highlighting is written in JavaScript since it depends on the [Ace static highlighter](https://github.com/ajaxorg/ace/blob/v1.4.12/lib/ace/ext/static_highlight.js). Previously, up to `v5.x`, highlighting was done *server side*, *i.e.* `rdocsyntax` used `V8` to execute the JavaScript code and finished highlighting the HTML doc before returning it through `httpd`.
+The code that does the highlighting is written in JavaScript since it depends on the [Ace static highlighter](https://github.com/ajaxorg/ace/blob/v1.4.12/lib/ace/ext/static_highlight.js). Previously, up to `v0.5.x`, highlighting was done *server side*, *i.e.* `rdocsyntax` used `V8` to execute the JavaScript code and finished highlighting the HTML doc before returning it through `httpd`.
 
-Starting from `v6.0`, highlighting has instead been done *client side*. The JavaScript highlighting code is injected into the original HTML doc in a `script` tag and then executed by whatever browser that eventually displays the doc, either RStudio or an external browser. Compared to server side highlighting, this is more efficient since `rdocsyntax` no longer has to run its own JavaScript engine. As a result, the heavy dependency on `V8` has been dropped.
+Starting from `v0.6.0`, highlighting has instead been done *client side*. The JavaScript highlighting code is injected into the original HTML doc in a `script` tag and then executed by whatever browser that eventually displays the doc, either RStudio or an external browser. Compared to server side highlighting, this is more efficient since `rdocsyntax` no longer has to run its own JavaScript engine. As a result, the heavy dependency on `V8` has been dropped.
 
 Legacy server side highlighting is still available on an opt-in basis.
 
