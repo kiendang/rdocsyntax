@@ -8,7 +8,7 @@ Overview
 
 This package enables syntax highlighting for R HTML documentation.
 
-Syntax highlighting follows RStudio theme when running RStudio. When running outside RStudio, Textmate theme is applied by default and theme customization is supported. See [Themes](#themes) for more details.
+Syntax highlighting follows RStudio theme when running RStudio. When running outside RStudio, theme customization is supported, with Textmate set as the default. See [Themes](#themes) for more details.
 
 The syntax highlighter comes from [Ace text editor](https://ace.c9.io/), the same editor underlying RStudio.
 
@@ -118,7 +118,7 @@ There are `## Not run` code examples that are single line. *e.g* in `?rstudioapi
 ## Not run: rstudioapi::highlightUi("#rstudio_workbench_panel_git")
 ```
 
-The code will not be syntax-highlighted because the whole line is considered a comment.
+The code will not be syntax-highlighted because the whole line is treated as a comment.
 
 The solution we use is to turn it into
 
@@ -131,7 +131,7 @@ in the generated html.
 
 ### Debug mode
 
-For development, debugging purpose, to show errors from `rdocsyntax` `httpd` help server:
+To show errors from `rdocsyntax` `httpd` help server for development/debugging purpose:
 
 ```r
 options(rdocsyntax.dev = TRUE)
@@ -139,7 +139,7 @@ options(rdocsyntax.dev = TRUE)
 
 ### Implementation details
 
-R HTML help pages are rendered and served by the internal help server `httpd`. The package works by replacing the original `httpd` with one that receives the original HTML doc, making changes to the HTML so that parts of the doc that contains code would be highlighted, then serving the modified HTML.
+R HTML help pages are rendered and served by the internal help server `httpd`. The package works by replacing the original `httpd` with one that receives the original HTML doc, makes changes to the HTML so that parts of the doc that contains code would be highlighted, then serves the modified HTML.
 
 #### Client side and server side highlighting
 
@@ -156,7 +156,7 @@ options(rdocsyntax.server_side_highlighting = TRUE)
 Of course `V8` needs to be installed for this to work.
 
 <details>
-  <summary><i>Some caveats regarding <code>V8</code></i></summary>
+  <summary><i>some caveats regarding <code>V8</code></i></summary>
 
   `V8` the R package depends on `libv8`. If you are on Linux you need to either install `libv8` from the package manager of your distro, compile `libv8` yourself or run the following commands to automatically download a suitable static build of `libv8` during installation of the `V8` R package (`>= 3.4`)
 
@@ -184,7 +184,6 @@ Of course `V8` needs to be installed for this to work.
   #  $source(file)
   #  $validate(src)
   ```
-
 </details>
 
 #### CRAN?
