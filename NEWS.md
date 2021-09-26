@@ -1,4 +1,4 @@
-# rdocsyntax 0.6.0.9000
+# rdocsyntax 0.6.1
 
 ## Changes
 
