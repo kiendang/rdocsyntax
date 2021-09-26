@@ -1,3 +1,5 @@
 .onLoad <- function(libname, pkgname) {
-  get_theme <<- memoise::memoise(get_theme)
+  if (requireNamespace("memoise", quietly = TRUE)) {
+    get_theme <<- memoise::memoise(get_theme)
+  }
 }

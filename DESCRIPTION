@@ -18,10 +18,10 @@ Depends:
     R (>= 2.10)
 Imports:
     xml2,
-    rvest,
-    memoise
+    rvest
 Suggests:
     V8,
+    memoise,
     testthat (>= 3.0.0),
     withr
 Encoding: UTF-8

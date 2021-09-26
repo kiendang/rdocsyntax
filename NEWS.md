@@ -1,5 +1,9 @@
 # rdocsyntax 0.6.0.9000
 
+## Changes
+
+- Make `memoise` dependency optional ([#29](https://github.com/kiendang/rdocsyntax/pull/29))
+
 # rdocsyntax 0.6.0
 
 ## Changes
