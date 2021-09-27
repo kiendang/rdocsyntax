@@ -2,7 +2,6 @@
 
 export(highlight_html_docs)
 export(unhighlight_html_docs)
-import(rvest)
 import(xml2)
 importFrom(tools,HTMLheader)
 importFrom(tools,file_ext)

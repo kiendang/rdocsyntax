@@ -14,20 +14,26 @@ test_that("Highlighting script is attached", {
     parsed <- read_html(highlighted, options = c())
 
     expect_length(
-      lib_ <- html_nodes(parsed, sprintf("script#%s", lib_script_id())),
+      lib_ <- xml_find_all(
+        parsed,
+        sprintf(".//script[@id=\"%s\"]", lib_script_id())
+      ),
       1
     )
 
     lib <- lib_[[1]]
-    expect_match(html_attr(lib, "src"), "/rdocsyntax/lib.js")
+    expect_match(xml_attr(lib, "src"), "/rdocsyntax/lib.js")
 
     expect_length(
-      main_ <- html_nodes(parsed, sprintf("script#%s", main_script_id())),
+      main_ <- xml_find_all(
+        parsed,
+        sprintf(".//script[@id=\"%s\"]", main_script_id())
+      ),
       1
     )
 
     main <- main_[[1]]
-    expect_match(html_attr(main, "src"), "/rdocsyntax/main.js")
+    expect_match(xml_attr(main, "src"), "/rdocsyntax/main.js")
   })
 })
 
@@ -46,21 +52,18 @@ test_that("Theme is applied when running outside RStudio", {
     parsed <- read_html(highlighted, options = c())
 
     expect_length(
-      html_nodes(
+      xml_find_all(
         parsed,
-        sprintf(
-          "style#%s",
-          theme_css_id()
-        )
+        sprintf(".//style[@id=\"%s\"]", theme_css_id())
       ),
       1
     )
 
     expect_length(
-      html_nodes(
+      xml_find_all(
         parsed,
         sprintf(
-          "style#%s.%s",
+          ".//style[@id=\"%s\" and contains(concat(\" \", normalize-space(@class), \" \"), \" %s \")]",
           scheme_css_id(),
           dark_scheme_css_class()
         )

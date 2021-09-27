@@ -110,7 +110,7 @@ test_that("Test inserting newline for inline Not run", {
 
 
 test_highlight_node <- function(code) {
-  node <- html_element(read_html(sprintf("<pre>%s</pre>", code)), "pre")
+  node <- xml_find_first(read_html(sprintf("<pre>%s</pre>", code)), ".//pre")
   highlighted <- highlight_node(node)
   expect_true(ace_default_css_class() %in% xml_node_classes(highlighted))
 }

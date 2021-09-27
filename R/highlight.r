@@ -10,7 +10,7 @@ highlight_html_file_client <- function(html) {
 
 highlight_html_client <- function(doc) {
   xml_add_child(
-    html_node(doc, "head"),
+    xml_find_first(doc, ".//head"),
     "script",
     id = lib_script_id(),
     defer = "defer",
@@ -18,7 +18,7 @@ highlight_html_client <- function(doc) {
   )
 
   xml_add_child(
-    html_node(doc, "head"),
+    xml_find_first(doc, ".//head"),
     "script",
     id = main_script_id(),
     defer = "defer",
@@ -109,7 +109,10 @@ highlight_html_file_<- function(html, highlight) {
 
 highlight_html_tree <- function(doc, call_js = call_js_()) {
   text_code_nodes <- xml_find_all(doc, ".//pre[count(*)=0]")
-  html_code_nodes <- html_nodes(doc, "pre code.sourceCode.r")
+  html_code_nodes <- xml_find_all(
+    doc,
+    ".//pre//code[contains(concat(\" \", normalize-space(@class), \" \"), \" sourceCode \") and contains(concat(\" \", normalize-space(@class), \" \"), \" r \")]"
+  )
 
   for (node in text_code_nodes) {
     highlight_text_node(node, call_js = call_js)
@@ -198,13 +201,13 @@ ace_default_css_class <- function() { "ace-tm" }
 
 
 highlight_node <- function(node, call_js = call_js_()) {
-  if (!length(code <- html_text(node)) || { code <- trimws(code) } == "") {
+  if (!length(code <- xml_text(node)) || { code <- trimws(code) } == "") {
     return(node)
   }
 
-  highlighted <- html_node(
+  highlighted <- xml_find_first(
     read_html(highlight_text(code, call_js = call_js)),
-    "body > div[class*=\"ace\"]"
+    ".//body/div[contains(@class, \"ace\")]"
   )
   remove_indent_guides(highlighted)
 
@@ -237,7 +240,10 @@ highlight_html_node <- function(node, call_js = call_js_()) {
 
 
 remove_indent_guides <- function(doc) {
-  nodes <- html_nodes(doc, ".ace_indent-guide")
+  nodes <- xml_find_all(
+    doc,
+    ".//*[contains(concat(\" \", normalize-space(@class), \" \"), \" ace_indent-guide \")]"
+  )
 
   for (node in nodes) {
     remove_classes(node, "ace_indent-guide")
@@ -248,7 +254,10 @@ remove_indent_guides <- function(doc) {
 
 
 replace_theme_css_class <- function(doc, from, to) {
-  nodes <- html_nodes(doc, paste0(".", from))
+  nodes <- xml_find_all(doc, sprintf(
+    ".//*[contains(concat(\" \", normalize-space(@class), \" \"), \" %s \")]",
+    from
+  ))
 
   for (node in nodes) {
     classes <- xml_node_classes(node)
@@ -271,7 +280,7 @@ remove_classes <- function(node, classes) {
 
 
 style_body <- function(doc) {
-  body <- html_nodes(doc, "body")
+  body <- xml_find_all(doc, ".//body")
 
   new_classes <- c(xml_node_classes(body), ace_generic_css_class())
 

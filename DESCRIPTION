@@ -17,8 +17,7 @@ BugReports: https://github.com/kiendang/rdocsyntax/issues
 Depends:
     R (>= 2.10)
 Imports:
-    xml2,
-    rvest
+    xml2
 Suggests:
     V8,
     memoise,
