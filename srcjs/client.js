@@ -17,6 +17,7 @@ const replaceAceClass = code => {
 
   classes.remove('ace-tm')
   classes.add('ace_editor_theme')
+  classes.add('rdocsyntax-ace-container')
 }
 
 const removeIndentGuide = code => {
