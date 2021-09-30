@@ -135,10 +135,17 @@ apply_styling <- function(doc) {
     add_css(
       doc,
       if (theme$isDark) dark_css else light_css,
+      " .rdocsyntax-ace-container { background: none; }",
       id = scheme_css_id(),
       class = scheme_css_class(theme$isDark)
     )
     style_body(doc)
+  } else {
+    add_css(
+      doc,
+      ".rdocsyntax-ace-container { background: none !important; }",
+      id = scheme_css_id()
+    )
   }
 }
 

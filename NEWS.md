@@ -1,5 +1,9 @@
 # rdocsyntax 0.6.1.9000
 
+## Bug fixes
+
+- Fix vignette code background for client side highlighting ([#32](https://github.com/kiendang/rdocsyntax/pull/32))
+
 # rdocsyntax 0.6.1
 
 ## Changes
