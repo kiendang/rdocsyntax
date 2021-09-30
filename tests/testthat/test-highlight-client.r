@@ -16,7 +16,7 @@ test_that("Highlighting script is attached", {
     expect_length(
       lib_ <- xml_find_all(
         parsed,
-        sprintf(".//script[@id=\"%s\"]", lib_script_id())
+        sprintf(".//script[@id='%s']", lib_script_id())
       ),
       1
     )
@@ -27,7 +27,7 @@ test_that("Highlighting script is attached", {
     expect_length(
       main_ <- xml_find_all(
         parsed,
-        sprintf(".//script[@id=\"%s\"]", main_script_id())
+        sprintf(".//script[@id='%s']", main_script_id())
       ),
       1
     )
@@ -54,7 +54,7 @@ test_that("Theme is applied when running outside RStudio", {
     expect_length(
       xml_find_all(
         parsed,
-        sprintf(".//style[@id=\"%s\"]", theme_css_id())
+        sprintf(".//style[@id='%s']", theme_css_id())
       ),
       1
     )
@@ -63,7 +63,7 @@ test_that("Theme is applied when running outside RStudio", {
       xml_find_all(
         parsed,
         sprintf(
-          ".//style[@id=\"%s\" and contains(concat(\" \", normalize-space(@class), \" \"), \" %s \")]",
+          ".//style[@id='%s' and contains(concat(' ', normalize-space(@class), ' '), ' %s ')]",
           scheme_css_id(),
           dark_scheme_css_class()
         )

@@ -111,7 +111,7 @@ highlight_html_tree <- function(doc, call_js = call_js_()) {
   text_code_nodes <- xml_find_all(doc, ".//pre[count(*)=0]")
   html_code_nodes <- xml_find_all(
     doc,
-    ".//pre//code[contains(concat(\" \", normalize-space(@class), \" \"), \" sourceCode \") and contains(concat(\" \", normalize-space(@class), \" \"), \" r \")]"
+    ".//pre//code[contains(concat(' ', normalize-space(@class), ' '), ' sourceCode ') and contains(concat(' ', normalize-space(@class), ' '), ' r ')]"
   )
 
   for (node in text_code_nodes) {
@@ -207,7 +207,7 @@ highlight_node <- function(node, call_js = call_js_()) {
 
   highlighted <- xml_find_first(
     read_html(highlight_text(code, call_js = call_js)),
-    ".//body/div[contains(@class, \"ace\")]"
+    ".//body/div[contains(@class, 'ace')]"
   )
   remove_indent_guides(highlighted)
 
@@ -242,7 +242,7 @@ highlight_html_node <- function(node, call_js = call_js_()) {
 remove_indent_guides <- function(doc) {
   nodes <- xml_find_all(
     doc,
-    ".//*[contains(concat(\" \", normalize-space(@class), \" \"), \" ace_indent-guide \")]"
+    ".//*[contains(concat(' ', normalize-space(@class), ' '), ' ace_indent-guide ')]"
   )
 
   for (node in nodes) {
@@ -255,7 +255,7 @@ remove_indent_guides <- function(doc) {
 
 replace_theme_css_class <- function(doc, from, to) {
   nodes <- xml_find_all(doc, sprintf(
-    ".//*[contains(concat(\" \", normalize-space(@class), \" \"), \" %s \")]",
+    ".//*[contains(concat(' ', normalize-space(@class), ' '), ' %s ')]",
     from
   ))
 
