@@ -1,13 +1,17 @@
 # rdocsyntax 0.6.1.9000
 
-## Bug fixes
+## Bug fixes and improvements
 
 - Fix vignette code background for client side highlighting ([#32](https://github.com/kiendang/rdocsyntax/pull/32))
+<<<<<<< HEAD
 - Fix inline `## Notrun` regex ([#34](https://github.com/kiendang/rdocsyntax/pull/34))
+=======
+- Update `ace` to `v1.4.13` ([#33](https://github.com/kiendang/rdocsyntax/pull/33))
+>>>>>>> a48861d (Add changelog entry)
 
 # rdocsyntax 0.6.1
 
-## Changes
+## Bug fixes and improvements
 
 - Make `memoise` dependency optional ([#29](https://github.com/kiendang/rdocsyntax/pull/29))
 
@@ -19,16 +23,13 @@
 
 # rdocsyntax 0.5.4
 
-## Changes
+## Bug fixes and improvements
 
 - Remove `readr` dependency ([#23](https://github.com/kiendang/rdocsyntax/pull/23))
 
 # rdocsyntax 0.5.3
 
-## Changes
-
-- Use the `RSTUDIO` environment variable to check for RStudio usage. This also removes `rstudioapi` dependency ([#21](https://github.com/kiendang/rdocsyntax/pull/21)).
-
-## Bug fixes
+## Bug fixes and improvements
 
 - Finally (hopefully) fixed encoding on Windows ([#6](https://github.com/kiendang/rdocsyntax/issues/6)) ([#21](https://github.com/kiendang/rdocsyntax/pull/21))
+- Use the `RSTUDIO` environment variable to check for RStudio usage. This also removes `rstudioapi` dependency ([#21](https://github.com/kiendang/rdocsyntax/pull/21)).
