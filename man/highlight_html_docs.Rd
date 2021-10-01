@@ -45,7 +45,7 @@ option. Valid choices are:
 \item Dark themes: \code{ambiance}, \code{chaos}, \code{clouds_midnight}, \code{cobalt},
 \code{dracula}, \code{gob}, \code{gruvbox}, \code{idle_fingers}, \code{kr_theme},
 \code{merbivore}, \code{merbivore_soft}, \code{mono_industrial}, \code{monokai},
-\code{nord_dark}, \code{pastel_on_dark}, \code{solarized_dark}, \code{terminal},
+\code{nord_dark}, \code{one_dark}, \code{pastel_on_dark}, \code{solarized_dark}, \code{terminal},
 \code{tomorrow_night}, \code{tomorrow_night_blue}, \code{tomorrow_night_bright},
 \code{tomorrow_night_eighties}, \code{twilight}, \code{vibrant_ink}
 }
