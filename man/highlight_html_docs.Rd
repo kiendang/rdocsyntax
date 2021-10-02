@@ -90,8 +90,7 @@ help(try, help_type = "html")
 unhighlight_html_docs()
 
 # Switch to dracula theme (only takes effect outside of RStudio)
-options(rdocsyntax.theme = "dracula")
-}
+options(rdocsyntax.theme = "dracula")}
 
 }
 \seealso{
