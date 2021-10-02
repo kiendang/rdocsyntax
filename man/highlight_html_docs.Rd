@@ -2,34 +2,38 @@
 % Please edit documentation in R/rdocsyntax.r
 \name{highlight_html_docs}
 \alias{highlight_html_docs}
-\title{Enable syntax highlighting in R HTML documentation}
+\alias{unhighlight_html_docs}
+\title{Toggle syntax highlighting in R HTML help pages}
 \usage{
 highlight_html_docs()
+
+unhighlight_html_docs()
 }
 \value{
 Called for side effects. No return value.
 }
 \description{
-Enable syntax highlighting in R HTML documentation
+Toggle syntax highlighting in R HTML help pages
 }
 \details{
-R HTML help pages are rendered and served using the \link[tools:startDynamicHelp]{internal help server}
-(\code{httpd}). This function enables syntax highlighting by replacing the original \code{httpd} with
-one that receives the original HTML doc, makes changes to the HTML so that parts of the doc that
-contains code would be highlighted, then serves the modified HTML.
+R HTML help pages are rendered and served by the \link[tools:startDynamicHelp]{internal help server}
+\code{httpd}. \code{highlight_html_docs()} enables syntax highlighting for them by replacing
+the built-in \code{httpd} with one that receives the original HTML doc, add syntax highlighting to
+the code examples inside, then serves the modified HTML.
 
 The syntax highlighter in use comes from the \href{https://ace.c9.io/}{Ace text editor},
-the same editor which \href{https://www.rstudio.com/}{Rstudio} uses.
+the same editor which \href{https://www.rstudio.com/products/rstudio/}{Rstudio} uses.
 
-To disable syntax highlighting and revert to the original help server, use \code{\link{unhighlight_html_docs}}.
+To disable syntax highlighting and revert to the original help server, use
+\code{unhighlight_html_docs()}.
 
 In case RStudio is not running, \emph{e.g.} R console in a terminal is used instead,
 either set option \code{help_type} to \code{"html"} \code{options(help_type = "html")}
-to view all help pages in HTML mode by default. To view one single help page in HTML mode without
-changing the \code{help_type} option globally, use the \code{help} function, \emph{e.g.}
-\code{help(try, help_type = "html")}.
+to view all help pages in HTML mode by default. To view one single help page in HTML mode
+without changing the \code{help_type} option globally, use \code{\link[utils:help]{help()}},
+\emph{e.g.} \code{help(try, help_type = "html")}.
 }
-\section{Theme}{
+\section{Themes}{
 
 When running inside RStudio, syntax highlighting always follows RStudio theme.
 
@@ -42,27 +46,45 @@ option. Valid choices are:
 \code{kuroir}, \code{solarized_light}, \code{sqlserver}, \code{textmate}, \code{tomorrow},
 \code{xcode}
 
-\item Dark themes: \code{ambiance}, \code{chaos}, \code{clouds_midnight}, \code{cobalt},
-\code{dracula}, \code{gob}, \code{gruvbox}, \code{idle_fingers}, \code{kr_theme},
-\code{merbivore}, \code{merbivore_soft}, \code{mono_industrial}, \code{monokai},
-\code{nord_dark}, \code{one_dark}, \code{pastel_on_dark}, \code{solarized_dark}, \code{terminal},
-\code{tomorrow_night}, \code{tomorrow_night_blue}, \code{tomorrow_night_bright},
-\code{tomorrow_night_eighties}, \code{twilight}, \code{vibrant_ink}
+\item Dark themes: \code{ambiance}, \code{chaos}, \code{clouds_midnight},
+\code{cobalt}, \code{dracula}, \code{gob}, \code{gruvbox}, \code{idle_fingers},
+\code{kr_theme}, \code{merbivore}, \code{merbivore_soft}, \code{mono_industrial},
+\code{monokai}, \code{nord_dark}, \code{one_dark}, \code{pastel_on_dark},
+\code{solarized_dark}, \code{terminal}, \code{tomorrow_night}, \code{tomorrow_night_blue},
+\code{tomorrow_night_bright}, \code{tomorrow_night_eighties}, \code{twilight},
+\code{vibrant_ink}
 }
 
 The default theme is \code{textmate} in case \code{rdocsyntax.theme} is not set or
 set to an invalid value.
 }
 
+\section{Syntax highlighting for vignettes}{
+
+Due to security reasons, by default only code in object documentation, as accessed by
+\code{\link[utils:Question]{?}} or \code{\link[utils:help]{help()}}, is syntax highlighted.
+Syntax highlighting for other pages served by the dynamic help server \code{httpd}
+including vignettes can be enabled by setting \code{options(rdocsyntax.extra = TRUE)}.
+
+Code in most vignettes has already been highlighted by default without the need for
+\code{rdocsyntax}. However one might still want to enable \code{rdocsyntax} for them
+anyway so that the color scheme matches that of RStudio. This is particularly useful
+when RStudio is set to a dark theme since most vignettes highlight their code with
+the \code{textmate} color scheme, which is a light theme and not dark mode friendly.
+
+Setting \code{rdocsyntax.extra = TRUE} does not affect user defined \code{httpd}
+endpoints under \code{/custom/}, only those under \code{/doc/} and \code{/library/}.
+}
+
 \section{Client side and server side highlighting}{
 
 The code that does the highlighting is written in JavaScript since it depends on the
-\href{Ace static highlighter}{https://github.com/ajaxorg/ace/blob/v1.4.12/lib/ace/ext/static_highlight.js}.
-Previously, up to \code{v5.x}, highlighting was done \emph{server side}, \emph{i.e.}
+\href{Ace static highlighter}{https://github.com/ajaxorg/ace/blob/v1.4.13/lib/ace/ext/static_highlight.js}.
+Previously, up to \code{v0.5.x}, highlighting was done \emph{server side}, \emph{i.e.}
 \code{rdocsyntax} used \code{V8} to execute the JavaScript code and finished highlighting
 the HTML doc before returning it through \code{httpd}.
 
-Starting from \code{v6.0}, highlighting has instead been done \emph{client side}.
+Starting from \code{v0.6.0}, highlighting has instead been done \emph{client side}.
 The JavaScript highlighting code is injected into the original HTML doc in a \code{script} tag
 and then executed by whatever browser that eventually displays the doc, either RStudio or
 an external browser. Compared to server side highlighting, this is more efficient since
@@ -86,13 +108,10 @@ highlight_html_docs()
 # e.g. when R is not running inside RStudio
 help(try, help_type = "html")
 
-# Disable syntax highlighting
-unhighlight_html_docs()
-
 # Switch to dracula theme (only takes effect outside of RStudio)
-options(rdocsyntax.theme = "dracula")}
+options(rdocsyntax.theme = "dracula")
 
-}
-\seealso{
-\code{\link{unhighlight_html_docs}}
+# Disable syntax highlighting
+unhighlight_html_docs()}
+
 }

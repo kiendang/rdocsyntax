@@ -98,7 +98,7 @@ options(rdocsyntax.theme = "dracula")
 
 The default theme is `textmate` in case `rdocsyntax.theme` is not set or set to an invalid value.
 
-### Vignette syntax highlighting
+### Syntax highlighting for vignettes
 
 Due to security reasons by default only code in `?` help pages is syntax highlighted. Syntax highlighting for other pages served by the dynamic help server `httpd` including vignettes can be enabled by setting
 
@@ -106,9 +106,9 @@ Due to security reasons by default only code in `?` help pages is syntax highlig
 options(rdocsyntax.extra = TRUE)
 ```
 
-Code in most vignettes has already been highlighted by default without the need for `rdocsyntax`. However one might still want to enable `rdocsyntax` for vignettes so that the color scheme matches that of RStudio. This is particularly useful with dark RStudio themes since most vignettes use textmate color scheme, which is a light theme and not dark mode friendly, for syntax highlighting.
+Code in most vignettes has already been highlighted by default without the need for `rdocsyntax`. However one might still want to enable `rdocsyntax` for them anyway so that the color scheme matches that of RStudio. This is particularly useful when RStudio is set to a dark theme since most vignettes highlight their code with the `textmate` color scheme, which is a light theme and not dark mode friendly.
 
-`rdocsyntax.extra = TRUE` does not affect user defined `httpd` endpoints under `/custom/`, only those under `/doc/` and `/library/`.
+Setting `rdocsyntax.extra = TRUE` does not affect user defined `httpd` endpoints under `/custom/`, only those under `/doc/` and `/library/`.
 
 ### Inline `## Not run`
 
@@ -139,11 +139,11 @@ options(rdocsyntax.dev = TRUE)
 
 ### Implementation details
 
-R HTML help pages are rendered and served by the internal help server `httpd`. The package works by replacing the original `httpd` with one that receives the original HTML doc, makes changes to the HTML so that parts of the doc that contains code would be highlighted, then serves the modified HTML.
+R HTML help pages are rendered and served by the internal help server `httpd`. The package works by replacing the built-in `httpd` with one that receives the original HTML doc, makes changes to the HTML so that parts of the doc that contains code would be highlighted, then serves the modified HTML.
 
 #### Client side and server side highlighting
 
-The code that does the highlighting is written in JavaScript since it depends on the [Ace static highlighter](https://github.com/ajaxorg/ace/blob/v1.4.12/lib/ace/ext/static_highlight.js). Previously, up to `v0.5.x`, highlighting was done *server side*, *i.e.* `rdocsyntax` used `V8` to execute the JavaScript code and finished highlighting the HTML doc before returning it through `httpd`.
+The code that does the highlighting is written in JavaScript since it depends on the [Ace static highlighter](https://github.com/ajaxorg/ace/blob/v1.4.13/lib/ace/ext/static_highlight.js). Previously, up to `v0.5.x`, highlighting was done *server side*, *i.e.* `rdocsyntax` used `V8` to execute the JavaScript code and finished highlighting the HTML doc before returning it through `httpd`.
 
 Starting from `v0.6.0`, highlighting has instead been done *client side*. The JavaScript highlighting code is injected into the original HTML doc in a `script` tag and then executed by whatever browser that eventually displays the doc, either RStudio or an external browser. Compared to server side highlighting, this is more efficient since `rdocsyntax` no longer has to run its own JavaScript engine. As a result, the heavy dependency on `V8` has been dropped.
 

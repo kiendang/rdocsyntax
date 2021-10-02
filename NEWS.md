@@ -3,11 +3,8 @@
 ## Bug fixes and improvements
 
 - Fix vignette code background for client side highlighting ([#32](https://github.com/kiendang/rdocsyntax/pull/32))
-<<<<<<< HEAD
 - Fix inline `## Notrun` regex ([#34](https://github.com/kiendang/rdocsyntax/pull/34))
-=======
 - Update `ace` to `v1.4.13` ([#33](https://github.com/kiendang/rdocsyntax/pull/33))
->>>>>>> a48861d (Add changelog entry)
 
 # rdocsyntax 0.6.1
 
