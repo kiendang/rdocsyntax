@@ -3,6 +3,7 @@
 ## Bug fixes
 
 - Fix vignette code background for client side highlighting ([#32](https://github.com/kiendang/rdocsyntax/pull/32))
+- Fix inline `## Notrun` regex ([#34](https://github.com/kiendang/rdocsyntax/pull/34))
 
 # rdocsyntax 0.6.1
 
