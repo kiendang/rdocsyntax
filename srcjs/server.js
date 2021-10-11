@@ -8,7 +8,7 @@ const highlightCode = s => (
   highlighter.renderSync(s, new rMode(), defaultTheme, null, true).html
 )
 
-let addLineBreakNotRun = (s) => s
+let addLineBreakNotRun = s => s
 
 try {
   const inlineNotRunRegex = new RegExp(
