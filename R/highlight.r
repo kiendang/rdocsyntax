@@ -201,12 +201,12 @@ ace_default_css_class <- function() { "ace-tm" }
 
 
 highlight_node <- function(node, call_js = call_js_()) {
-  if (!length(code <- xml_text(node)) || { code <- trimws(code) } == "") {
+  if (!length(code <- xml_text(node)) || code == "") {
     return(node)
   }
 
   highlighted <- xml_find_first(
-    read_html(highlight_text(code, call_js = call_js)),
+    read_html(highlight_text(trimws(code, which = "right"), call_js = call_js)),
     ".//body/div[contains(@class, 'ace')]"
   )
   remove_indent_guides(highlighted)

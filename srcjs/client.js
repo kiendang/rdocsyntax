@@ -32,7 +32,7 @@ const highlightCode = code => {
   highlighter(code, {
     mode: 'ace/mode/r',
     showGutter: false,
-    trim: true
+    trim: 'end'
   }, _highlighted => { })
 }
 
