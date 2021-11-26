@@ -1,7 +1,7 @@
 # Syntax highlighting for R HTML documentation
 
 ![Build Status](https://github.com/kiendang/rdocsyntax/actions/workflows/check-standard.yaml/badge.svg)
-![r-universe](https://kiendang.r-universe.dev/badges/rdocsyntax)
+[![rdocsyntax status badge](https://kiendang.r-universe.dev/badges/rdocsyntax)](https://kiendang.r-universe.dev)
 
 Overview
 --------

@@ -1,3 +1,5 @@
+# rdocsyntax 0.6.2.9000
+
 # rdocsyntax 0.6.2
 
 ## Bug fixes and improvements
