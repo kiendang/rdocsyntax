@@ -1,4 +1,5 @@
-*__Note:__ Syntax highlighting for HTML help pages was added to R v4.2 so there is now less of a use case for this package. Though you might still want to use it since it does look a bit nicer than the default provided by R. Advantages include more consistent font size, highlighting colors consistent with RStudio theme, highlighting all code snippets in the doc instead of just `Usage` and `Examples`. There is plan to try bringing these improvements to upstream. The goal of this package has always been ultimately obsoleting itself.*
+> [!IMPORTANT]
+> Syntax highlighting for HTML help pages was added to R v4.2 so there is now less of a use case for this package. Though you might still want to use it since it does look a bit nicer than the default provided by R. Advantages include more consistent font size, highlighting colors consistent with RStudio theme, highlighting all code snippets in the doc instead of just `Usage` and `Examples`.
 
 # Syntax highlighting for R HTML documentation
 
@@ -78,7 +79,8 @@ rdocsyntax::highlight_html_docs()
 
 to your `.Rprofile`
 
-*__Warning__: This might cause failure when upgrading R packages. It is recommended to comment out that line in `.Rprofile` before you run `update.packages()`*.
+> [!CAUTION]
+> This might cause failure when upgrading R packages. It is recommended to comment out that line in `.Rprofile` before you run `update.packages()`.
 
 Extras
 ------
